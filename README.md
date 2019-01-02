@@ -1,3 +1,5 @@
+![Logo](https://github.com/Leolion610/wif/blob/master/Pictures/wif_logo.png?raw=true)
+
 # WPF Infrastructure Framework（WIF）
 
  [English Document]()
@@ -19,6 +21,10 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 - ##### Wif.Utils：WPF基础设施框架的扩展部分，主要是一些Extensions、Helpers。
 
 - ##### Wif.Infrastructure：WPF基础设施框架的主要部分，包含Binding、PropertyChanged、MarkupExtensions、Converters、Commands、EventToCommand、Behaviors、ValidationRules等大量实用基础设施。
+
+## 组成图
+
+![组成图](https://github.com/Leolion610/wif/blob/master/Pictures/WifConstitutionalDiagram.png?raw=true)
 
 
 # 博客
