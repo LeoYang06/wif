@@ -1,0 +1,86 @@
+﻿using System;
+
+namespace Frontier.Wif.Core.Generic
+{
+    /// <summary>
+    /// Static helper used to create or get a singleton from another class.
+    /// </summary>
+    /// <typeparam name="T">The type to create or get a singleton.</typeparam>
+    public static class SingletonProvider<T> where T : class, new()
+    {
+        #region Fields
+
+        /// <summary>
+        /// Gets the singleton of the given type.
+        /// </summary>
+        private static readonly Lazy<T> _lazy = new Lazy<T>(() => new T());
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the Instance
+        /// Gets the singleton of the given type.
+        /// </summary>
+        public static T Instance => _lazy.Value;
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 单例供应者。
+    /// </summary>
+    public static class SingletonProvider
+    {
+        #region Methods
+
+        /// <summary>
+        /// 获取指定类型的单例。
+        /// </summary>
+        /// <typeparam name="TParameter">单例类型。</typeparam>
+        /// <returns>The <see cref="TParameter" />单例对象。</returns>
+        public static TParameter Get<TParameter>() where TParameter : class, new()
+        {
+            return SingletonProvider<TParameter>.Instance;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 这只是示例。 Defines the <see cref="Singleton" />
+    /// </summary>
+    internal sealed class Singleton
+    {
+        #region Fields
+
+        /// <summary>
+        /// Defines the _lazy
+        /// </summary>
+        private static readonly Lazy<Singleton> _lazy = new Lazy<Singleton>(() => new Singleton());
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the Instance
+        /// Gets the Instance
+        /// </summary>
+        public static Singleton Instance => _lazy.Value;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="Singleton"/> class from being created.
+        /// </summary>
+        private Singleton()
+        {
+        }
+
+        #endregion
+    }
+}
