@@ -20,7 +20,7 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 
 ## 组成图
 
-![组成图](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_ConstitutionalDiagram?raw=true)
+![组成图](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_ConstitutionalDiagram.png?raw=true)
 
 
 # 博客
