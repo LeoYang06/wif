@@ -41,7 +41,7 @@
     <Compile Include="Async\AsyncLazy.cs" />
     <Compile Include="Async\AsyncProperty.cs" />
     <Compile Include="Async\AsyncPropertyBase.cs" />
-    <Compile Include="Async\AsyncPropertyUtils.cs" />
+    <Compile Include="Async\IAsyncProperty.cs" />
     <Compile Include="Cache\BoxCache.cs" />
     <Compile Include="Collections\AsyncObservableCollection.cs" />
     <Compile Include="Collections\BulkObservableCollection.cs" />

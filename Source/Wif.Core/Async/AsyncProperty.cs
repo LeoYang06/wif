@@ -1,32 +1,28 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace Frontier.Wif.Core.Async
 {
     /// <summary>
-    /// This class is an INotifyPropertyChanged for an async task.
+    ///     This class is an INotifyPropertyChanged for an async task.
     /// </summary>
-    public class AsyncProperty : AsyncPropertyBase
+    public class AsyncProperty : AsyncPropertyBase<Task>
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets the Task
-        /// </summary>
-        protected override Task Task { get; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncProperty"/> class.
+        ///     Initializes a new instance of the <see cref="AsyncProperty" /> class.
         /// </summary>
-        /// <param name="task">The task<see cref="Task"/></param>
-        public AsyncProperty(Task task)
+        public AsyncProperty() : base(Task.CompletedTask)
         {
-            Task = task;
-            WaitTask(task);
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="AsyncProperty" /> class.
+        /// </summary>
+        /// <param name="task">The task<see cref="Task" /></param>
+        public AsyncProperty(Task task) : base(task)
+        {
         }
 
         #endregion
@@ -34,92 +30,77 @@ namespace Frontier.Wif.Core.Async
         #region Methods
 
         /// <summary>
-        /// The WaitTask
+        ///     Creates an <seealso cref="AsyncProperty{T}" /> from the given task. When the task competes it will
+        ///     apply <paramref name="func" /> and that will be the final value of the property.
         /// </summary>
-        /// <param name="task">The task<see cref="Task"/></param>
-        private async void WaitTask(Task task)
+        /// <typeparam name="TIn">The type of the input task result.</typeparam>
+        /// <typeparam name="T">The type of the property value.</typeparam>
+        /// <param name="valueSource">The task where the initial value comes from.</param>
+        /// <param name="func">The function to apply to the result of the task.</param>
+        /// <param name="defaultValue">The value to use while the task is executing.</param>
+        /// <returns>The <see cref="AsyncProperty{T}" /></returns>
+        public static AsyncProperty<T> Create<TIn, T>(
+                Task<TIn> valueSource,
+                Func<TIn, T> func,
+                T defaultValue = default)
         {
-            try
-            {
-                await task;
-            }
-            catch
-            {
-                // Check exceptions using task.
-            }
-
-            RaiseAllPropertyChanged();
+            var continuationTask = valueSource.ContinueWith(
+                    t => func(GetTaskResultSafe(t)));
+            return new AsyncProperty<T>(continuationTask, defaultValue);
         }
 
         #endregion
     }
 
     /// <summary>
-    /// This class is an async model for a single async property, the Value property will
-    /// be set to the result of the Task once it is completed.
+    ///     This class is an async model for a single async property, the Value property will
+    ///     be set to the result of the Task once it is completed.
     /// </summary>
     /// <typeparam name="T">The type of the property</typeparam>
-    public class AsyncProperty<T> : AsyncPropertyBase
+    public class AsyncProperty<T> : AsyncPropertyBase<Task<T>>
     {
         #region Fields
 
         /// <summary>
-        /// Defines the _completionSource
+        ///     Defines the _value
         /// </summary>
-        private readonly Lazy<TaskCompletionSource<bool>> _completionSource = new Lazy<TaskCompletionSource<bool>>();
-
-        /// <summary>
-        /// Defines the _valueSource
-        /// </summary>
-        private readonly Task<T> _valueSource;
+        private T _value;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Gets the Value
-        /// The value of the property, which will be set once Task where the value comes from
-        /// is completed.
+        ///     Gets the Value
+        ///     The value of the property, which will be set once Task where the value comes from
+        ///     is completed.
         /// </summary>
-        public T Value { get; private set; }
-
-        /// <summary>
-        /// Gets the ValueTask
-        /// Returns a task that will be completed once the wrapped task is completed. This task is
-        /// not directly connected to the wrapped task and will never throw and error.
-        /// </summary>
-        public Task ValueTask => _completionSource.Value.Task;
-
-        /// <summary>
-        /// Gets the Task
-        /// </summary>
-        protected override Task Task => _valueSource;
+        public T Value
+        {
+            get => _value;
+            private set => RaiseAndSetIfChanged(ref _value, value);
+        }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncProperty{T}"/> class.
+        ///     Initializes a new instance of the <see cref="AsyncProperty{T}" /> class.
         /// </summary>
-        /// <param name="value">The value<see cref="T"/></param>
-        public AsyncProperty(T value)
+        /// <param name="value">The value<see cref="T" /></param>
+        public AsyncProperty(T value) : this(Task.FromResult(value), value)
         {
-            Value = value;
-            _completionSource.Value.SetResult(true);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncProperty{T}"/> class.
+        ///     Initializes a new instance of the <see cref="AsyncProperty{T}" /> class.
         /// </summary>
-        /// <param name="valueSource">The valueSource<see cref="Task{T}"/></param>
-        /// <param name="defaultValue">The defaultValue<see cref="T"/></param>
-        public AsyncProperty(Task<T> valueSource, T defaultValue = default)
+        /// <param name="valueSource">The valueSource<see cref="Task{T}" /></param>
+        /// <param name="defaultValue">The defaultValue<see cref="T" /></param>
+        public AsyncProperty(Task<T> valueSource, T defaultValue = default) : base(valueSource)
         {
-            _valueSource = valueSource;
-            Value = defaultValue;
-            AwaitForValue();
+            Value = ActualTask.IsCompleted ? GetTaskResultSafe(ActualTask, defaultValue) : defaultValue;
         }
 
         #endregion
@@ -127,17 +108,11 @@ namespace Frontier.Wif.Core.Async
         #region Methods
 
         /// <summary>
-        /// The AwaitForValue
+        ///     The OnTaskComplete
         /// </summary>
-        private void AwaitForValue()
+        protected override void OnTaskComplete()
         {
-            _valueSource.ContinueWith(t =>
-            {
-                // Value is initiated with defaultValue at constructor.
-                Value = AsyncPropertyUtils.GetTaskResultSafe(t, Value);
-                _completionSource.Value.SetResult(true);
-                RaiseAllPropertyChanged();
-            });
+            Value = GetTaskResultSafe(ActualTask, Value);
         }
 
         #endregion
