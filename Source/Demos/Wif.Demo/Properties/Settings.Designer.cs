@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wif.Utils.Demo.Properties
+namespace Wif.Demo.Properties
 {
 
 
