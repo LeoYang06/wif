@@ -12,8 +12,8 @@ namespace Frontier.Wif.Core.Generic
     /// 2) Define a single parameterless private constructor inside the class. It ensures that no instances of this class can be created externally.
     /// 3) Access the class’ singleton instance and public members by calling the Instance property.
     /// 
-    /// got this implementation from http://liquidsilver.codeplex.com
-    /// http://codebender.denniland.com/a-singleton-base-class-to-implement-the-singleton-pattern-in-c/
+    /// got this implementation from https://github.com/denni/liquidsilver
+    /// http://csharpindepth.com/Articles/General/Singleton.aspx#introduction
     /// 
     /// also show http://www.yoda.arachsys.com/csharp/singleton.html
     ///
