@@ -1,6 +1,6 @@
 ![Logo](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_logo.png?raw=true)
 
-# WPF Infrastructure Framework（WIF）[English](https://github.com/Leolion610/wif/blob/master/README.EN.md)
+# WPF Infrastructure Framework（WIF）          [English](https://github.com/Leolion610/wif/blob/master/README.EN.md)
 
 WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您快速开发WPF应用程序。
 
