@@ -20,7 +20,6 @@ namespace Frontier.Wif.Core.Generic
         #region Properties
 
         /// <summary>
-        /// Gets the Instance
         /// Gets the singleton of the given type.
         /// </summary>
         public static T Instance => _lazy.Value;
@@ -29,17 +28,17 @@ namespace Frontier.Wif.Core.Generic
     }
 
     /// <summary>
-    /// 单例供应者。
+    /// Static helper used to create or get a singleton from another class.
     /// </summary>
     public static class SingletonProvider
     {
         #region Methods
 
         /// <summary>
-        /// 获取指定类型的单例。
+        /// Gets the singleton of the given type.
         /// </summary>
-        /// <typeparam name="TParameter">单例类型。</typeparam>
-        /// <returns>The <see cref="TParameter" />单例对象。</returns>
+        /// <typeparam name="TParameter">Given singleton type.</typeparam>
+        /// <returns>The <see cref="TParameter" />Singleton object.</returns>
         public static TParameter Get<TParameter>() where TParameter : class, new()
         {
             return SingletonProvider<TParameter>.Instance;
@@ -49,7 +48,7 @@ namespace Frontier.Wif.Core.Generic
     }
 
     /// <summary>
-    /// 这只是示例。 Defines the <see cref="Singleton" />
+    /// This is just an example of a normal singleton.
     /// </summary>
     internal sealed class Singleton
     {
@@ -65,7 +64,6 @@ namespace Frontier.Wif.Core.Generic
         #region Properties
 
         /// <summary>
-        /// Gets the Instance
         /// Gets the Instance
         /// </summary>
         public static Singleton Instance => _lazy.Value;
