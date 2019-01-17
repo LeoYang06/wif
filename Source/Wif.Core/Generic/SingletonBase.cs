@@ -43,7 +43,7 @@ namespace Frontier.Wif.Core.Generic
             #region Fields
 
             /// <summary>
-            /// Defines the _instance
+            /// Defines the singleton instance.
             /// </summary>
             private static WeakReference _instance;
 
@@ -52,7 +52,7 @@ namespace Frontier.Wif.Core.Generic
             #region Properties
 
             /// <summary>
-            /// Gets the Instance
+            /// Gets the singleton of the given type.
             /// </summary>
             internal static T Instance
             {

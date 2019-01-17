@@ -25,7 +25,16 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 
 # 博客
 
-计划在博客园中写一系列文章介绍该框架的使用。
+> **【[wif 系列](https://www.cnblogs.com/leolion/p/10275027.html)】**
+
+
+
+## 文档
+
+- [在C#中实现单例模式](https://github.com/LeoYang610/wif/tree/master/Docs/在C#中实现单例模式.md)
+- [C#之单例模式（Singleton Pattern）最佳实践](https://github.com/LeoYang610/wif/tree/master/Docs/C#之单例模式（Singleton Pattern）最佳实践.md)
+
+
 
 ## 致敬感谢
 
