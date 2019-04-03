@@ -38,6 +38,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AttachedBehaviors\ScrollViewerHelper.cs" />
     <Compile Include="Behaviors\DragInCanvasBehavior.cs" />
     <Compile Include="Behaviors\ListBoxScrollToEndBehavior.cs" />
     <Compile Include="Behaviors\ListViewScrollToEndBehaviour.cs" />

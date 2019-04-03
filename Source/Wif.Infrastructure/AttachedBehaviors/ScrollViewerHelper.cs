@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Infrastructure.AttachedBehaviors
 {
     /// <summary>
     /// Defines the <see cref="ScrollViewerHelper" />
