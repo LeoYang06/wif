@@ -31,8 +31,8 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 
 ## 文档
 
-- [在C#中实现单例模式](https://github.com/LeoYang610/wif/tree/master/Docs/在C#中实现单例模式.md)
-- [C#之单例模式（Singleton Pattern）最佳实践](https://github.com/LeoYang610/wif/tree/master/Docs/C#之单例模式（Singleton Pattern）最佳实践.md)
+- [在C#中实现单例模式](https://github.com/LeoYang610/wif/blob/master/Docs/%E5%9C%A8C%23%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md)
+- [C#之单例模式（Singleton Pattern）最佳实践](https://github.com/LeoYang610/wif/blob/master/Docs/C%23%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%EF%BC%88Singleton%20Pattern%EF%BC%89%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md)
 
 
 
