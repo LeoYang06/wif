@@ -33,7 +33,6 @@ namespace Wif.Demo
 
         public MainViewModel()
         {
-
             var model = MobilePhoneSingletonModel.Instance;
             model.Brand = Brand.Apple;
             model.NumberOfCPUCore = NumberOfCPUCore.Quad;

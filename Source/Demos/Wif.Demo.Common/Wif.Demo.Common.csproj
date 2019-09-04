@@ -52,6 +52,7 @@
     <ProjectReference Include="..\..\Wif.Core\Wif.Core.csproj">
       <Project>{5d4bb5fc-7a4f-47a4-b412-e70544f621db}</Project>
       <Name>Wif.Core</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
