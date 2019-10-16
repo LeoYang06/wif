@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,14 +7,14 @@ using System.Text;
 namespace Frontier.Wif.Utils.Helpers
 {
     /// <summary>
-    /// 文件目录帮助类
+    ///     文件目录帮助类
     /// </summary>
     public static class IOHelper
     {
         #region Methods
 
         /// <summary>
-        /// 向文本文件的尾部追加内容，换行。
+        ///     向文本文件的尾部追加内容，换行。
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <param name="contents">写入的内容集合</param>
@@ -29,7 +28,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 向文本文件的尾部追加内容，换行。
+        ///     向文本文件的尾部追加内容，换行。
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <param name="content">写入的内容</param>
@@ -42,7 +41,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 向文本文件的尾部追加内容，不换行。
+        ///     向文本文件的尾部追加内容，不换行。
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <param name="content">写入的内容</param>
@@ -55,7 +54,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 清空指定目录下所有文件及子目录，但该目录依然保留。
+        ///     清空指定目录下所有文件及子目录，但该目录依然保留。
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
         public static void ClearDirectory(string directoryPath)
@@ -75,12 +74,12 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 检测指定目录中是否存在指定的文件
+        ///     检测指定目录中是否存在指定的文件
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string"/></param>
+        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
-        /// <returns>The <see cref="bool"/></returns>
+        /// <returns>The <see cref="bool" /></returns>
         public static bool Contains(string directoryPath, string searchPattern, bool isSearchChild)
         {
             //获取指定的文件列表
@@ -93,7 +92,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 将源文件的内容复制到目标文件中
+        ///     将源文件的内容复制到目标文件中
         /// </summary>
         /// <param name="sourceFilePath">源文件的绝对路径</param>
         /// <param name="destFilePath">目标文件的绝对路径</param>
@@ -103,7 +102,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 指定文件夹下面的所有内容copy到目标文件夹下面
+        ///     指定文件夹下面的所有内容copy到目标文件夹下面
         ///     <remarks>如果目标文件夹为只读属性就会报错</remarks>
         /// </summary>
         /// <param name="srcPath">原始路径</param>
@@ -132,7 +131,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 复制文件
+        ///     复制文件
         /// </summary>
         /// <param name="sourceDir">要复制的文件的路径已经全名(包括后缀)</param>
         /// <param name="destDir">目标位置,并指定新的文件名</param>
@@ -145,7 +144,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 复制文件夹(递归)
+        ///     复制文件夹(递归)
         /// </summary>
         /// <param name="fromDirectory">源文件夹路径</param>
         /// <param name="toDirectory">目标文件夹路径</param>
@@ -167,7 +166,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 创建目录，支持文件的目录创建。
+        ///     创建目录，支持文件的目录创建。
         /// </summary>
         /// <param name="filePath"></param>
         public static void CreateDirectory(string filePath)
@@ -178,7 +177,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 创建一个文件。
+        ///     创建一个文件。
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
         public static void CreateFile(string filePath)
@@ -192,7 +191,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 创建一个文件。
+        ///     创建一个文件。
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
         /// <param name="isOverwritten">是否覆盖，默认不覆盖</param>
@@ -214,7 +213,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 创建一个文件,并将字节流写入文件。
+        ///     创建一个文件,并将字节流写入文件。
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
         /// <param name="buffer">二进制流数据</param>
@@ -229,7 +228,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 删除文件
+        ///     删除文件
         /// </summary>
         /// <param name="file">要删除的文件路径和名称</param>
         public static void DeleteFile(string file)
@@ -239,7 +238,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 递归删除文件夹目录及文件
+        ///     递归删除文件夹目录及文件
         /// </summary>
         /// <param name="dir"></param>
         public static void DeleteFolder(string dir)
@@ -249,7 +248,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 删除指定文件夹对应其他文件夹里的文件
+        ///     删除指定文件夹对应其他文件夹里的文件
         /// </summary>
         /// <param name="fromDirectory">指定文件夹路径</param>
         /// <param name="toDirectory">对应其他文件夹路径</param>
@@ -273,7 +272,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 检查文件,如果文件不存在则创建
+        ///     检查文件,如果文件不存在则创建
         /// </summary>
         /// <param name="path">路径,包括文件名</param>
         public static void ExistsFile(string path)
@@ -286,12 +285,12 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取指定目录及子目录中所有子目录列表
+        ///     获取指定目录及子目录中所有子目录列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string"/></param>
+        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
-        /// <returns>The <see cref="string[]"/></returns>
+        /// <returns>The <see cref="string[]" /></returns>
         public static string[] GetDirectories(string directoryPath, string searchPattern,
                 bool isSearchChild)
         {
@@ -301,7 +300,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取文件夹大小
+        ///     获取文件夹大小
         /// </summary>
         /// <param name="dirPath">文件夹路径</param>
         /// <returns></returns>
@@ -322,7 +321,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取目录名称
+        ///     获取目录名称
         /// </summary>
         /// <param name="directoryPath">目录路径</param>
         /// <returns>目录名称</returns>
@@ -334,12 +333,12 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取指定目录及子目录中所有子目录名称列表
+        ///     获取指定目录及子目录中所有子目录名称列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string"/></param>
+        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
-        /// <returns>The <see cref="IEnumerable{string}"/></returns>
+        /// <returns>The <see cref="IEnumerable{string}" /></returns>
         public static IEnumerable<string> GetDirectoryNames(string directoryPath, string searchPattern,
                 bool isSearchChild)
         {
@@ -350,10 +349,10 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取指定目录中所有文件列表
+        ///     获取指定目录中所有文件列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <returns>The <see cref="string[]"/></returns>
+        /// <returns>The <see cref="string[]" /></returns>
         public static string[] GetFileFullNames(string directoryPath)
         {
             //如果目录不存在，则抛出异常
@@ -365,12 +364,12 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取指定目录及子目录中所有文件列表
+        ///     获取指定目录及子目录中所有文件列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string"/></param>
+        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
-        /// <returns>The <see cref="string[]"/></returns>
+        /// <returns>The <see cref="string[]" /></returns>
         public static string[] GetFileFullNames(string directoryPath, string searchPattern,
                 bool isSearchChild)
         {
@@ -384,10 +383,10 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 从文件的绝对路径中获取文件名( 不包含扩展名 )
+        ///     从文件的绝对路径中获取文件名( 不包含扩展名 )
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
-        /// <returns>The <see cref="string"/></returns>
+        /// <returns>The <see cref="string" /></returns>
         public static string GetFileNameNoExtension(string filePath)
         {
             //获取文件的名称
@@ -396,10 +395,10 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取一个文件的长度,单位为mb
+        ///     获取一个文件的长度,单位为mb
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
-        /// <returns>The <see cref="int"/></returns>
+        /// <returns>The <see cref="int" /></returns>
         public static int GetFileSize(string filePath)
         {
             if (File.Exists(filePath))
@@ -415,10 +414,10 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取文本文件的行数
+        ///     获取文本文件的行数
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
-        /// <returns>The <see cref="int"/></returns>
+        /// <returns>The <see cref="int" /></returns>
         public static int GetLineCount(string filePath)
         {
             try
@@ -436,7 +435,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取父目录路径
+        ///     获取父目录路径
         /// </summary>
         /// <param name="directoryPath">目录路径</param>
         /// <returns>父目录路径</returns>
@@ -451,10 +450,10 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 检测指定目录是否为空
+        ///     检测指定目录是否为空
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <returns>The <see cref="bool"/></returns>
+        /// <returns>The <see cref="bool" /></returns>
         public static bool IsEmptyDirectory(string directoryPath)
         {
             //判断是否存在文件
@@ -471,7 +470,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 将文件移动到指定目录
+        ///     将文件移动到指定目录
         /// </summary>
         /// <param name="sourceFilePath">需要移动的源文件的绝对路径</param>
         /// <param name="destDirectoryPath">移动到的目录的绝对路径</param>
@@ -491,7 +490,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 读取所有文本
+        ///     读取所有文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="encoding">读取文件的编码。</param>
@@ -511,7 +510,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 读取所有文本
+        ///     读取所有文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="startLine">读取文本的起始行。</param>
@@ -548,7 +547,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 读取所有文本
+        ///     读取所有文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="startLine">读取文本的起始行。</param>
@@ -588,7 +587,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 读取所有文本
+        ///     读取所有文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="encoding">读取文件的编码。</param>
@@ -636,7 +635,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 从文件的指定行开始读取指定行数的文本
+        ///     从文件的指定行开始读取指定行数的文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="encoding">读取文件的编码。</param>
@@ -674,7 +673,7 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 读文件
+        ///     读文件
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="encoding">读取文件的编码。</param>
@@ -711,30 +710,22 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
-        /// 将文本内容写入文件。
+        ///     将文本内容写入文件。
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="content">写入的内容</param>
         public static void WriteAllText(string filePath, string content)
         {
-            try
-            {
-                // 创建目录
-                CreateDirectory(filePath);
+            // 创建目录
+            CreateDirectory(filePath);
 
-                // 写入文本内容
-                using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    using (var fs = new StreamWriter(fileStream, Encoding.UTF8))
-                    {
-                        fs.Write(content);
-                    }
-                }
-            }
-            catch (Exception e)
+            // 写入文本内容
+            using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                Debug.WriteLine(e.Message);
-                throw;
+                using (var fs = new StreamWriter(fileStream, Encoding.UTF8))
+                {
+                    fs.Write(content);
+                }
             }
         }
 
