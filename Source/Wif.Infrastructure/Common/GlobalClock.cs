@@ -57,7 +57,7 @@ namespace Frontier.Wif.Infrastructure.Common
         /// <summary>
         ///     获取UTC时间长字符串表现形式。
         /// </summary>
-        public string LongUtcDateTimeString => CurrentDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        public string LongUtcDateTimeString => DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
         #endregion
 
