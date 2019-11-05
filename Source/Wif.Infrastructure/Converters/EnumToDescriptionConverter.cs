@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Data;
+using Frontier.Wif.Infrastructure.MarkupExtensions;
 using Frontier.Wif.Utils.Extensions;
 
 namespace Frontier.Wif.Infrastructure.Converters
@@ -8,7 +9,7 @@ namespace Frontier.Wif.Infrastructure.Converters
     /// <summary>
     /// 枚举到描述转换器。
     /// </summary>
-    public class EnumToDescriptionConverter : IValueConverter
+    public class EnumToDescriptionConverter : MarkupConverter<EnumToDescriptionConverter>
     {
         /// <summary>
         /// 正向转换。
@@ -18,7 +19,7 @@ namespace Frontier.Wif.Infrastructure.Converters
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        protected override object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var enumItem = value as Enum;
             string description = enumItem.GetDescription();
@@ -33,7 +34,7 @@ namespace Frontier.Wif.Infrastructure.Converters
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        protected override object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return DependencyProperty.UnsetValue;
         }

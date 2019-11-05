@@ -9,7 +9,7 @@ namespace Frontier.Wif.Utils.Helpers
     /// <summary>
     ///     文件目录帮助类
     /// </summary>
-    public static class IOHelper
+    public static class FileHelper
     {
         #region Methods
 
