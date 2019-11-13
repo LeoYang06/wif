@@ -288,36 +288,48 @@ namespace Frontier.Wif.Core.Generic
     }
 
     /// <summary>
-    /// Defines the <see cref="UsingLock{T}" />
+    /// 定义 <see cref="UsingLock{T}" /> 自动释放的读写锁。
     /// </summary>
+    /// <example>
+    /// This sample shows how to use the UsingLock class.
+    /// <code>
+    /// UsingLock<object> _Lock = new UsingLock<object>();
+    /// using(_Lock.Write())
+    /// {
+    /// }
+    /// using(_Lock.Read())
+    /// {
+    /// }
+    /// </code>
+    /// </example>
     /// <typeparam name="T"></typeparam>
     public sealed class UsingLock<T> : UsingLock
     {
         #region Fields
 
         /// <summary>
-        /// Defines the _Data
+        /// 定义锁对象变量。
         /// </summary>
-        private T _Data;
+        private T _lockObject;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets the Data
+        /// 获取或设置锁对象实例。
         /// </summary>
-        public T Data
+        public T LockObject
         {
             get
             {
-                if (IsReadLocked || IsWriteLocked) return _Data;
+                if (IsReadLocked || IsWriteLocked) return _lockObject;
                 throw new MemberAccessException("请先进入读取或写入锁定模式再进行操作");
             }
             set
             {
-                if (IsWriteLocked == false) throw new MemberAccessException("只有写入锁定模式中才能改变Data的值");
-                _Data = value;
+                if (IsWriteLocked == false) throw new MemberAccessException("只有写入锁定模式中才能改变LockObject的值");
+                _lockObject = value;
             }
         }
 
@@ -336,11 +348,11 @@ namespace Frontier.Wif.Core.Generic
         /// <summary>
         /// Initializes a new instance of the <see cref="UsingLock{T}"/> class.
         /// </summary>
-        /// <param name="data">为Data属性设置初始值</param>
-        public UsingLock(T data)
+        /// <param name="lockObject">为 LockObject 属性设置初始值</param>
+        public UsingLock(T lockObject)
         {
             Enabled = true;
-            _Data = data;
+            _lockObject = lockObject;
         }
 
         #endregion
