@@ -47,6 +47,7 @@
     <Compile Include="Extensions\CollectionViewShaperExtensions.cs" />
     <Compile Include="Extensions\ColorConvertExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DependencyExtensions.cs" />
     <Compile Include="Extensions\DispatcherExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
