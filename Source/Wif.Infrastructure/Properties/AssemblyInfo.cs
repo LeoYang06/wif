@@ -43,4 +43,5 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("https://frontier-dn.github.io/winfx/xaml/presentation/wif", "Frontier.Wif.Infrastructure.Converters")]
 [assembly: XmlnsDefinition("https://frontier-dn.github.io/winfx/xaml/presentation/wif", "Frontier.Wif.Infrastructure.EventToCommand")]
 [assembly: XmlnsDefinition("https://frontier-dn.github.io/winfx/xaml/presentation/wif", "Frontier.Wif.Infrastructure.MarkupExtensions")]
+[assembly: XmlnsDefinition("https://frontier-dn.github.io/winfx/xaml/presentation/wif", "Frontier.Wif.Infrastructure.PanelExtensions")]
 [assembly: XmlnsDefinition("https://frontier-dn.github.io/winfx/xaml/presentation/wif", "Frontier.Wif.Infrastructure.ValidationRules")]

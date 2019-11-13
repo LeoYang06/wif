@@ -48,6 +48,9 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Common\GlobalClock.cs" />
+    <Compile Include="PanelExtensions\AutoGrid.cs" />
+    <Compile Include="PanelExtensions\AutoStackPanel.cs" />
+    <Compile Include="PanelExtensions\RelativePanel.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWindowStateConverter.cs" />
@@ -107,5 +110,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
