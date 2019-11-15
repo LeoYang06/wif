@@ -34,7 +34,10 @@ namespace Frontier.Wif.Core.Collections
         /// </summary>
         public ConcurrentObservableCollection()
         {
-            enableCollectionSynchronization(this, _syncLock.LockObject);
+            using (_syncLock.Read())
+            {
+                enableCollectionSynchronization(this, _syncLock);
+            }
         }
 
         /// <summary>
@@ -43,7 +46,10 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="list">集合。</param>
         public ConcurrentObservableCollection(IEnumerable<T> list) : base(list)
         {
-            enableCollectionSynchronization(this, _syncLock.LockObject);
+            using (_syncLock.Read())
+            {
+                enableCollectionSynchronization(this, _syncLock);
+            }
         }
 
         /// <summary>
@@ -99,16 +105,16 @@ namespace Frontier.Wif.Core.Collections
                     return;
 
                 var dispatcher = (from NotifyCollectionChangedEventHandler ncc in notifyCollectionChanged.GetInvocationList()
-                    let dpo = ncc.Target as DispatcherObject
-                    where dpo != null
-                    select dpo.Dispatcher).FirstOrDefault();
+                                  let dpo = ncc.Target as DispatcherObject
+                                  where dpo != null
+                                  select dpo.Dispatcher).FirstOrDefault();
 
                 if (dispatcher != null && dispatcher.CheckAccess() == false)
-                    dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => OnCollectionChanged(e)));
+                    dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() => OnCollectionChanged(e)));
                 else
                     foreach (var @delegate in notifyCollectionChanged.GetInvocationList())
                     {
-                        var ncc = (NotifyCollectionChangedEventHandler) @delegate;
+                        var ncc = (NotifyCollectionChangedEventHandler)@delegate;
                         ncc.Invoke(this, e);
                     }
             }
@@ -127,10 +133,10 @@ namespace Frontier.Wif.Core.Collections
         private static void enableCollectionSynchronization(IEnumerable collection, object lockObject)
         {
             var method = typeof(BindingOperations).GetMethod("EnableCollectionSynchronization",
-                new[] {typeof(IEnumerable), typeof(object)});
+                new[] { typeof(IEnumerable), typeof(object) });
             if (method != null)
                 // It's .NET 4.5
-                method.Invoke(null, new[] {collection, lockObject});
+                method.Invoke(null, new[] { collection, lockObject });
         }
 
         /// <summary>
@@ -267,7 +273,7 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="param"></param>
         private void OnCollectionChanged(object param)
         {
-            base.OnCollectionChanged((NotifyCollectionChangedEventArgs) param);
+            base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);
         }
 
         /// <summary>
@@ -276,9 +282,9 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="param"></param>
         private void RaisePropertyChanged(object param)
         {
-            base.OnPropertyChanged((PropertyChangedEventArgs) param);
+            base.OnPropertyChanged((PropertyChangedEventArgs)param);
         }
-        
+
         /// <summary>
         /// 将list1与list2组合，并返回修改后的list1。
         /// </summary>
@@ -286,7 +292,7 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="list2">第二个集合</param>
         /// <returns>修改后的list1实例</returns>
         public static ConcurrentObservableCollection<T> operator +(ConcurrentObservableCollection<T> list1,
-            IList<T>                                                                                 list2)
+            IList<T> list2)
         {
             foreach (var item in list2)
                 list1.Add(item);
