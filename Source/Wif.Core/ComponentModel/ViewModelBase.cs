@@ -18,7 +18,7 @@ namespace Frontier.Wif.Core.ComponentModel
         /// <summary>
         /// 是否为设计模式。
         /// </summary>
-        protected bool IsInDesignMode => IsInDesignModeStatic;
+        public bool IsInDesignMode => IsInDesignModeStatic;
 
 
         /// <summary>

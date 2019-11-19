@@ -218,6 +218,18 @@ namespace Frontier.Wif.Utils.Extensions
         }
 
         /// <summary>
+        /// 将枚举类型转换成另一种枚举类型。
+        /// </summary>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T ToEnum<T>(this Enum value) where T : struct
+        {
+            var intValue = value.ToInt();
+            return intValue.ToEnum<T>();
+        }
+
+        /// <summary>
         /// 将枚举转换成等效的整数值。
         /// </summary>
         /// <param name="value">枚举。</param>
@@ -244,7 +256,7 @@ namespace Frontier.Wif.Utils.Extensions
             try
             {
                 // ReSharper disable once PossibleNullReferenceException
-                return (T) Enum.ToObject(enumType, value);
+                return (T)Enum.ToObject(enumType, value);
             }
             catch (ArgumentException)
             {
