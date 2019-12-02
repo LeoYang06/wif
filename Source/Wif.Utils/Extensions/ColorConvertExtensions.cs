@@ -1,4 +1,8 @@
-﻿using System.Windows.Media;
+﻿using System.Drawing;
+using System.Windows.Media;
+using Brush = System.Windows.Media.Brush;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace Frontier.Wif.Utils.Extensions
 {
@@ -7,13 +11,11 @@ namespace Frontier.Wif.Utils.Extensions
     /// </summary>
     public static class ColorConvertExtensions
     {
-        #region Methods
-
         /// <summary>
         /// The ToBrush
         /// </summary>
-        /// <param name="color">The color<see cref="Color"/></param>
-        /// <returns>The <see cref="Brush"/></returns>
+        /// <param name="color">The color<see cref="System.Windows.Media.Color" /></param>
+        /// <returns>The <see cref="System.Windows.Media.Brush" /></returns>
         public static Brush ToBrush(this Color color)
         {
             return new SolidColorBrush(color);
@@ -22,8 +24,8 @@ namespace Frontier.Wif.Utils.Extensions
         /// <summary>
         /// The ToBrush
         /// </summary>
-        /// <param name="htmlColor">The htmlColor<see cref="string"/></param>
-        /// <returns>The <see cref="Brush"/></returns>
+        /// <param name="htmlColor">The htmlColor<see cref="string" /></param>
+        /// <returns>The <see cref="Brush" /></returns>
         public static Brush ToBrush(this string htmlColor)
         {
             var brushConverter = new BrushConverter();
@@ -34,8 +36,8 @@ namespace Frontier.Wif.Utils.Extensions
         /// <summary>
         /// The ToColor
         /// </summary>
-        /// <param name="brush">The brush<see cref="Brush"/></param>
-        /// <returns>The <see cref="Color"/></returns>
+        /// <param name="brush">The brush<see cref="Brush" /></param>
+        /// <returns>The <see cref="Color" /></returns>
         public static Color ToColor(this Brush brush)
         {
             var color = ((SolidColorBrush) brush).Color;
@@ -45,20 +47,25 @@ namespace Frontier.Wif.Utils.Extensions
         /// <summary>
         /// The ToColor
         /// </summary>
-        /// <param name="htmlColor">The htmlColor<see cref="string"/></param>
-        /// <returns>The <see cref="Color"/></returns>
+        /// <param name="htmlColor">The htmlColor<see cref="string" /></param>
+        /// <returns>The <see cref="Color" /></returns>
         public static Color ToColor(this string htmlColor)
         {
             var convertFromString = ColorConverter.ConvertFromString(htmlColor);
-            if (convertFromString != null)
-            {
-                var color = (Color) convertFromString;
-                return color;
-            }
-
-            return default;
+            if (convertFromString == null)
+                return default;
+            var color = (Color) convertFromString;
+            return color;
         }
 
-        #endregion
+        /// <summary>
+        /// The ToDrawingColor
+        /// </summary>
+        /// <param name="htmlColor">The htmlColor<see cref="string" /></param>
+        /// <returns>The <see cref="System.Drawing.Color" /></returns>
+        public static System.Drawing.Color ToDrawingColor(this string htmlColor)
+        {
+            return ColorTranslator.FromHtml(htmlColor);
+        }
     }
 }
