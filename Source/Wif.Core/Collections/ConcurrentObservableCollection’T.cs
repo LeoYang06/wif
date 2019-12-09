@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading;
 using System.Windows.Data;
-using System.Windows.Threading;
 using Frontier.Wif.Core.Generic;
 
 namespace Frontier.Wif.Core.Collections
@@ -28,6 +26,11 @@ namespace Frontier.Wif.Core.Collections
         /// 定义同步锁对象。
         /// </summary>
         private readonly UsingLock<object> _syncLock = new UsingLock<object>();
+
+        /// <summary>
+        /// 在集合发生改变时发生。
+        /// </summary>
+        private NotifyCollectionChangedEventHandler _collectionChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConcurrentObservableCollection{T}" /> class.
@@ -53,7 +56,6 @@ namespace Frontier.Wif.Core.Collections
         }
 
         /// <summary>
-        /// Gets the Count
         /// 获取集合中实际包含的元素数。
         /// </summary>
         public new int Count
@@ -98,32 +100,36 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="e">集合变化事件参数。</param>
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
+            // 不允许可重入的更改此集合的尝试。
             using (BlockReentrancy())
             {
-                var notifyCollectionChanged = CollectionChanged;
-                if (notifyCollectionChanged == null)
-                    return;
+                if (_collectionChanged != null)
+                {
+                    var delegates = _collectionChanged.GetInvocationList();
 
-                var dispatcher = (from NotifyCollectionChangedEventHandler ncc in notifyCollectionChanged.GetInvocationList()
-                                  let dpo = ncc.Target as DispatcherObject
-                                  where dpo != null
-                                  select dpo.Dispatcher).FirstOrDefault();
-
-                if (dispatcher != null && dispatcher.CheckAccess() == false)
-                    dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() => OnCollectionChanged(e)));
-                else
-                    foreach (var @delegate in notifyCollectionChanged.GetInvocationList())
+                    // 遍历调用列表。
+                    foreach (var @delegate in delegates)
                     {
-                        var ncc = (NotifyCollectionChangedEventHandler)@delegate;
-                        ncc.Invoke(this, e);
+                        var handler = (NotifyCollectionChangedEventHandler) @delegate;
+                        // 如果订阅者是DispatcherObject和不同的线程。
+                        if (handler != null)
+                            // 目标调度程序线程中的调用处理程序。
+                            handler.Invoke(handler, e);
+                        else // 按原样执行处理程序。
+                            _collectionChanged(this, e);
                     }
+                }
             }
         }
 
         /// <summary>
         /// 在集合发生改变时发生。
         /// </summary>
-        public override event NotifyCollectionChangedEventHandler CollectionChanged;
+        public override event NotifyCollectionChangedEventHandler CollectionChanged
+        {
+            add => _collectionChanged += value;
+            remove => _collectionChanged -= value;
+        }
 
         /// <summary>
         /// 使集合同步。
@@ -133,10 +139,10 @@ namespace Frontier.Wif.Core.Collections
         private static void enableCollectionSynchronization(IEnumerable collection, object lockObject)
         {
             var method = typeof(BindingOperations).GetMethod("EnableCollectionSynchronization",
-                new[] { typeof(IEnumerable), typeof(object) });
+                new[] {typeof(IEnumerable), typeof(object)});
             if (method != null)
                 // It's .NET 4.5
-                method.Invoke(null, new[] { collection, lockObject });
+                method.Invoke(null, new[] {collection, lockObject});
         }
 
         /// <summary>
@@ -273,7 +279,7 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="param"></param>
         private void OnCollectionChanged(object param)
         {
-            base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);
+            base.OnCollectionChanged((NotifyCollectionChangedEventArgs) param);
         }
 
         /// <summary>
@@ -282,7 +288,7 @@ namespace Frontier.Wif.Core.Collections
         /// <param name="param"></param>
         private void RaisePropertyChanged(object param)
         {
-            base.OnPropertyChanged((PropertyChangedEventArgs)param);
+            base.OnPropertyChanged((PropertyChangedEventArgs) param);
         }
 
         /// <summary>
