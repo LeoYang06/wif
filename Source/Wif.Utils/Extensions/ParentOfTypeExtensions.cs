@@ -71,8 +71,7 @@ namespace Frontier.Wif.Utils.Extensions
 			DependencyObject parent = null;
 			try
 			{
-				//// fix for bug 188967.
-				parent = VisualTreeHelper.GetParent(element);
+                parent = VisualTreeHelper.GetParent(element);
 			}
 			catch (InvalidOperationException)
 			{
@@ -80,19 +79,11 @@ namespace Frontier.Wif.Utils.Extensions
 			}
 			if (parent == null)
 			{
-				var frameworkElement = element as FrameworkElement;
-				if (frameworkElement != null)
+                if (element is FrameworkElement frameworkElement)
 				{
 					parent = frameworkElement.Parent;
 				}
-#if WPF
-                var frameworkContentElement = element as FrameworkContentElement;
-                if (frameworkContentElement != null)
-                {
-                    parent = frameworkContentElement.Parent;
-                }
-#endif
-			}
+            }
 			return parent;
 		}
 	}

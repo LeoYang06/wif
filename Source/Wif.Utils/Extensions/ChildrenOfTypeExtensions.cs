@@ -109,7 +109,7 @@ namespace Frontier.Wif.Utils.Extensions
 
                 yield return child;
 
-                if (!typeWhichChildrenShouldBeSkipped.IsAssignableFrom(child.GetType()))
+                if (!typeWhichChildrenShouldBeSkipped.IsInstanceOfType(child))
                     foreach (var item in child.GetChildrenOfType(typeWhichChildrenShouldBeSkipped))
                         yield return item;
             }
@@ -122,7 +122,7 @@ namespace Frontier.Wif.Utils.Extensions
         /// <returns>The <see cref="IEnumerable{DependencyObject}"/></returns>
         private static IEnumerable<DependencyObject> GetChildrenRecursive(this DependencyObject element)
         {
-            if (element == null) throw new ArgumentNullException("element");
+            if (element == null) throw new ArgumentNullException(nameof(element));
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
             {
