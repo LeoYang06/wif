@@ -48,6 +48,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Common\GlobalClock.cs" />
+    <Compile Include="MarkupExtensions\EventBindingExtension.cs" />
     <Compile Include="PanelExtensions\AutoGrid.cs" />
     <Compile Include="PanelExtensions\AutoStackPanel.cs" />
     <Compile Include="PanelExtensions\RelativePanel.cs" />

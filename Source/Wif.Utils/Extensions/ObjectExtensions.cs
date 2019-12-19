@@ -16,7 +16,6 @@
         /// <returns>The value casted to <typeparamref name="T" />, or <c>default(T)</c> if value is <c>null</c>.</returns>
         public static T SafeCast<T>(this object value)
         {
-            // ReSharper disable once MergeConditionalExpression : R# is wrong, remove the null value check will cause error for value types!
             return value == null ? default : (T) value;
         }
 

@@ -56,6 +56,7 @@
     <Compile Include="Generic\SingletonBase.cs" />
     <Compile Include="Generic\SingletonProvider.cs" />
     <Compile Include="Generic\UsingLock‘T.cs" />
+    <Compile Include="Generic\WeakEventHandlerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework" />
