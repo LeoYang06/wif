@@ -52,6 +52,7 @@
     <Compile Include="ComponentModel\PropertyChangedBase.cs" />
     <Compile Include="ComponentModel\PropertyChangedSingletonBase.cs" />
     <Compile Include="ComponentModel\ViewModelBase.cs" />
+    <Compile Include="Ensure.cs" />
     <Compile Include="Generic\SingletonBase.cs" />
     <Compile Include="Generic\SingletonProvider.cs" />
     <Compile Include="Generic\UsingLock‘T.cs" />
