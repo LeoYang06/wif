@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Windows;
@@ -11,17 +12,50 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
 {
     /// <summary>
     /// Defines the <see cref="EventBindingExtension" />
+    /// <code>
+    /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=blue}" /> 普通绑定。
+    /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=$this.Fill}" /> 绑定到当前控件的属性上。
+    /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=$e}" />  绑定到当前上下文上。
+    /// </code>
     /// </summary>
     public class EventBindingExtension : MarkupExtension
     {
         /// <summary>
         /// Defines the getMethod
         /// </summary>
-        internal static readonly MethodInfo getMethod = typeof(EventBindingExtension).GetMethod("HandlerIntern", new[] { typeof(object), typeof(object), typeof(string), typeof(string) });
+        internal static readonly MethodInfo getMethod = typeof(EventBindingExtension).GetMethod("HandlerIntern", new[] {typeof(object), typeof(object), typeof(string), typeof(string)});
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventBindingExtension" /> class.
+        /// </summary>
+        public EventBindingExtension()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventBindingExtension" /> class.
+        /// </summary>
+        /// <param name="commandName">The commandName<see cref="string" /></param>
+        public EventBindingExtension(string commandName) : this()
+        {
+            Command = commandName;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventBindingExtension" /> class.
+        /// </summary>
+        /// <param name="command">The command<see cref="string" /></param>
+        /// <param name="commandParameter">The commandParameter<see cref="string" /></param>
+        public EventBindingExtension(string command, string commandParameter) : this(command)
+        {
+            Command = command;
+            CommandParameter = commandParameter;
+        }
 
         /// <summary>
         /// Gets or sets the Command
         /// </summary>
+        [ConstructorArgument("command")]
         public string Command { get; set; }
 
         /// <summary>
@@ -98,12 +132,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
                 return null;
 
             var handlerInfo = eventHandlerType.GetMethod("Invoke");
-            var method = new DynamicMethod("", handlerInfo?.ReturnType,
-                new[]
-                {
-                    handlerInfo?.GetParameters()[0].ParameterType,
-                    handlerInfo?.GetParameters()[1].ParameterType
-                });
+            var method = new DynamicMethod("", handlerInfo?.ReturnType, handlerInfo?.GetParameters().Select(x => x.ParameterType).ToArray());
 
             var gen = method.GetILGenerator();
             gen.Emit(OpCodes.Ldarg, 0);
@@ -237,7 +266,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
             {
                 var property = currentType.GetProperty(propertyName);
                 if (property == null)
-                    throw new NullReferenceException(nameof(property)+"is null");
+                    throw new NullReferenceException(nameof(property) + "is null");
 
                 target = property.GetValue(target);
                 currentType = property.PropertyType;
