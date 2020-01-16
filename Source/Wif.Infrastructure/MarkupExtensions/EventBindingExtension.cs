@@ -12,7 +12,9 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
 {
     /// <summary>
     /// Defines the <see cref="EventBindingExtension" />
+    /// <remarks>https://github.com/JonghoL/EventBindingMarkup</remarks>
     /// <code>
+    /// <Rectangle MouseDown="{wif:EventBinding MouseDownCommand}" /> 普通无参数绑定。
     /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=blue}" /> 普通绑定。
     /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=$this.Fill}" /> 绑定到当前控件的属性上。
     /// <Rectangle MouseDown="{wif:EventBinding Command=MouseDownCommand, CommandParameter=$e}" />  绑定到当前上下文上。
@@ -23,7 +25,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
         /// <summary>
         /// Defines the getMethod
         /// </summary>
-        internal static readonly MethodInfo getMethod = typeof(EventBindingExtension).GetMethod("HandlerIntern", new[] {typeof(object), typeof(object), typeof(string), typeof(string)});
+        internal static readonly MethodInfo getMethod = typeof(EventBindingExtension).GetMethod("HandlerIntern", new[] { typeof(object), typeof(object), typeof(string), typeof(string) });
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventBindingExtension" /> class.

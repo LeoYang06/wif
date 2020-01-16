@@ -4,6 +4,14 @@ namespace Frontier.Wif.Infrastructure.EventToCommand
 {
     /// <summary>
     /// Behavior that execute command when given event is raised.
+    /// <remarks>https://docs.telerik.com/devtools/wpf/common-information/mvvm-helpers/common-event-to-command-behavior#getting-started</remarks>
+    /// <code>
+    /// <Wif.Demo:ListBox x:Name="ListBox" ItemsSource="{Binding ListBoxItems}"> 
+    /// <wif:EventToCommandBehavior.EventBindings> 
+    /// <Wif:EventBinding Command = "{Binding CustomCommand}" EventName="MouseEnter" /> 
+    /// </Wif:EventToCommandBehavior.EventBindings> 
+    /// </Wif.Demo:ListBox> 
+    /// </code>
     /// </summary>
     public static class EventToCommandBehavior
     {
@@ -27,7 +35,7 @@ namespace Frontier.Wif.Infrastructure.EventToCommand
         /// <returns>Returns the <see cref="EventBindingCollection" /> associated with this object.</returns>
         public static EventBindingCollection GetEventBindings(DependencyObject obj)
         {
-            var collection = (EventBindingCollection) obj.GetValue(EventBindingsProperty);
+            var collection = (EventBindingCollection)obj.GetValue(EventBindingsProperty);
             if (collection == null)
             {
                 collection = new EventBindingCollection();
