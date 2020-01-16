@@ -13,8 +13,6 @@ namespace Frontier.Wif.Utils.Extensions
     /// </summary>
     public static class EnumExtensions
     {
-        #region Methods
-
         /// <summary>
         /// 获取枚举子项的数量。
         /// </summary>
@@ -29,7 +27,7 @@ namespace Frontier.Wif.Utils.Extensions
         /// 获取枚举类子项描述信息。
         /// </summary>
         /// <param name="enumSubitem">枚举类子项。</param>
-        /// <returns>The <see cref="string"/></returns>
+        /// <returns>The <see cref="string" /></returns>
         public static string GetDescription(this Enum enumSubitem)
         {
             try
@@ -87,9 +85,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this int value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -99,9 +97,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T?"/></returns>
+        /// <returns>The <see cref="T?" /></returns>
         public static T? ToEnum<T>(this int? value)
-                where T : struct
+            where T : struct
         {
             return InternalToNullableEnum<T>(value);
         }
@@ -111,9 +109,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this long value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -123,9 +121,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this short value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -135,24 +133,38 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T?"/></returns>
+        /// <returns>The <see cref="T?" /></returns>
         public static T? ToEnum<T>(this short? value)
-                where T : struct
+            where T : struct
         {
             return InternalToNullableEnum<T>(value);
+        }
+
+        /// <summary>
+        /// 将枚举常数的名称对象转换成等效的枚举对象。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value<see cref="object" /></param>
+        /// <returns>The <see cref="T" /></returns>
+        public static T ToEnum<T>(this object value) where T : struct, IConvertible
+        {
+            Contract.Requires(value != null);
+            return ToEnum<T>(value.ToString());
         }
 
         /// <summary>
         /// 将枚举常数的名称的字符串表示转换成等效的枚举对象。
         /// </summary>
         /// <typeparam name="T">枚举类型。</typeparam>
-        /// <param name="text">要转换的枚举名称的字符串表示形式。</param>
+        /// <param name="value">要转换的枚举名称的字符串表示形式。</param>
         /// <returns>类型的对象。</returns>
-        public static T ToEnum<T>(this string text) where T : struct, IConvertible
+        public static T ToEnum<T>(this string value) where T : struct, IConvertible
         {
-            if (!Enum.TryParse(text, true, out T result)) return default;
+            if (!Enum.TryParse(value, true, out T result))
+                return default;
 
-            if (!Enum.IsDefined(typeof(T), result)) return default;
+            if (!Enum.IsDefined(typeof(T), result))
+                return default;
 
             return result;
         }
@@ -162,9 +174,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this uint value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -174,9 +186,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T?"/></returns>
+        /// <returns>The <see cref="T?" /></returns>
         public static T? ToEnum<T>(this uint? value)
-                where T : struct
+            where T : struct
         {
             return InternalToNullableEnum<T>(value);
         }
@@ -186,9 +198,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this ulong value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -198,9 +210,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The <see cref="Enum" /> type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T"/></returns>
+        /// <returns>The <see cref="T" /></returns>
         public static T ToEnum<T>(this ushort value)
-                where T : struct
+            where T : struct
         {
             return InternalToEnum<T>(value);
         }
@@ -210,9 +222,9 @@ namespace Frontier.Wif.Utils.Extensions
         /// </summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T?"/></returns>
+        /// <returns>The <see cref="T?" /></returns>
         public static T? ToEnum<T>(this ushort? value)
-                where T : struct
+            where T : struct
         {
             return InternalToNullableEnum<T>(value);
         }
@@ -220,8 +232,8 @@ namespace Frontier.Wif.Utils.Extensions
         /// <summary>
         /// 将枚举类型转换成另一种枚举类型。
         /// </summary>
-        /// <param name="value"></param>
         /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static T ToEnum<T>(this Enum value) where T : struct
         {
@@ -246,7 +258,7 @@ namespace Frontier.Wif.Utils.Extensions
         /// <param name="value">The <see cref="object" /></param>
         /// <returns>The <see cref="T" /></returns>
         private static T InternalToEnum<T>(object value)
-                where T : struct
+            where T : struct
         {
             Contract.Requires(value != null);
             var enumType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
@@ -255,7 +267,6 @@ namespace Frontier.Wif.Utils.Extensions
 
             try
             {
-                // ReSharper disable once PossibleNullReferenceException
                 return (T)Enum.ToObject(enumType, value);
             }
             catch (ArgumentException)
@@ -271,7 +282,7 @@ namespace Frontier.Wif.Utils.Extensions
         /// <param name="value">The <see cref="object" /></param>
         /// <returns>The <see cref="T?" /></returns>
         private static T? InternalToNullableEnum<T>(object value)
-                where T : struct
+            where T : struct
         {
             if (value == null)
                 return null;
@@ -288,7 +299,5 @@ namespace Frontier.Wif.Utils.Extensions
         {
             return Convert.ToInt64(value, CultureInfo.InvariantCulture);
         }
-
-        #endregion
     }
 }

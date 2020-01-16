@@ -63,7 +63,7 @@ namespace Frontier.Wif.Utils.Extensions
         /// <param name="completedAction">The completedAction<see cref="Action"/></param>
         /// <param name="runCompletedActionInUIThread">The runCompletedActionInUIThread<see cref="bool"/></param>
         /// <returns>The <see cref="Task{TResult}"/></returns>
-        public static Task<TResult> RunAsync<TResult>(this Func<TResult> workFunction, Action completedAction,
+        public static Task<TResult> RunAsync<TResult>(this Func<TResult> workFunction, Action<TResult> completedAction,
                 bool runCompletedActionInUIThread = true)
         {
             var taskScheduler = runCompletedActionInUIThread
@@ -71,7 +71,7 @@ namespace Frontier.Wif.Utils.Extensions
                     : TaskScheduler.Current;
 
             var task = Task.Run(workFunction);
-            task.ContinueWith(unusedTask => completedAction(), taskScheduler);
+            task.ContinueWith(unusedTask => completedAction(task.Result), taskScheduler);
             return task;
         }
 
