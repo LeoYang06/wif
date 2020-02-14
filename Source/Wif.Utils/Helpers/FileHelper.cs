@@ -416,6 +416,36 @@ namespace Frontier.Wif.Utils.Helpers
         }
 
         /// <summary>
+        /// 获取一个文件的长度(GB MB KB)
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>
+        /// <returns>The <see cref="int" /></returns>
+        public static string GetFileFullSize(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                //创建一个文件对象
+                var fi = new FileInfo(filePath);
+                //获取文件的大小
+                var lenght = fi.Length;
+
+                if ((lenght / 1048576.00) > 1024)
+                {
+                    return Math.Round(lenght / 1073741824.00, 2) + "GB";
+                }
+
+                if ((lenght / 1024.00) > 1024)
+                {
+                    return Math.Round(lenght / 1048576.00, 2) + "MB";
+                }
+
+                return Math.Round(lenght / 1024.00, 2) + "KB";
+            }
+
+            throw new FileNotFoundException("未能找到文件:" + filePath);
+        }
+
+        /// <summary>
         /// 获取文本文件的行数
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
