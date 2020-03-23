@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// Contains extension methods for enumerating the children of an element.

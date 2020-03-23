@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using Frontier.Wif.Utils.Helpers;
+using Frontier.Wif.Utilities.Helpers;
 
 namespace Frontier.Wif.Core.ComponentModel
 {
@@ -19,7 +19,6 @@ namespace Frontier.Wif.Core.ComponentModel
         /// 是否为设计模式。
         /// </summary>
         public bool IsInDesignMode => IsInDesignModeStatic;
-
 
         /// <summary>
         /// 在UI线程上调用指定的操作。

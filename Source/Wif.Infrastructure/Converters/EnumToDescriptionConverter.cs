@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 using Frontier.Wif.Infrastructure.MarkupExtensions;
-using Frontier.Wif.Utils.Extensions;
+using Frontier.Wif.Utilities.Extensions;
 
 namespace Frontier.Wif.Infrastructure.Converters
 {

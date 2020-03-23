@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Utilities.Helpers
 {
     /// <summary>
     /// 各种串行化的帮助类

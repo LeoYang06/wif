@@ -98,10 +98,9 @@
       <Name>Wif.Core</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Wif.Utils\Wif.Utils.csproj">
+    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj">
       <Project>{0f11e648-32c4-4024-89a7-ab9b5556b787}</Project>
-      <Name>Wif.Utils</Name>
-      <Private>False</Private>
+      <Name>Wif.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0F11E648-32C4-4024-89A7-AB9B5556B787}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Frontier.Wif.Utils</RootNamespace>
-    <AssemblyName>Wif.Utils</AssemblyName>
+    <RootNamespace>Frontier.Wif.Utilities</RootNamespace>
+    <AssemblyName>Wif.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
-    <DocumentationFile>..\..\Output\Debug\Wif.Utils.xml</DocumentationFile>
+    <DocumentationFile>..\..\Output\Debug\Wif.Utilities.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
-    <DocumentationFile>..\..\Output\Release\Wif.Utils.xml</DocumentationFile>
+    <DocumentationFile>..\..\Output\Release\Wif.Utilities.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// Defines the <see cref="DateTimeExtensions" />

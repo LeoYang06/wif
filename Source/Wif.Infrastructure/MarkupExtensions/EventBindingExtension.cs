@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using Frontier.Wif.Core.ComponentModel;
-using Frontier.Wif.Utils.Extensions;
+using Frontier.Wif.Utilities.Extensions;
 
 namespace Frontier.Wif.Infrastructure.MarkupExtensions
 {

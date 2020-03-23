@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Frontier.Wif.Utils.Extensions;
+using Frontier.Wif.Utilities.Extensions;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Utilities.Helpers
 {
     #region Enums
 

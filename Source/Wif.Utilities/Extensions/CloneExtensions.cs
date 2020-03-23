@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// 对象深拷贝扩展方法（可参考第三方库DeepCloner或CloneExtensions）。

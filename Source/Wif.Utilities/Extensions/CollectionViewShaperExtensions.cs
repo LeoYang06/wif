@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Data;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// Defines the <see cref="CollectionViewShaper{TSource}" />

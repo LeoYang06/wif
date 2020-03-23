@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Frontier.Wif.Utils.Extensions;
+using Frontier.Wif.Utilities.Extensions;
 
 namespace Frontier.Wif.Infrastructure.PanelExtensions
 {

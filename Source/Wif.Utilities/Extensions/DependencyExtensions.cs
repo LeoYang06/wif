@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// 依赖对象和依赖属性的扩展方法类。

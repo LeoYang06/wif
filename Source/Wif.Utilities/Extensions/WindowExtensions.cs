@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
 
-namespace Frontier.Wif.Utils.Extensions
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// Defines the <see cref="WindowExtensions" />

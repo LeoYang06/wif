@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Utilities.Helpers
 {
     /// <summary>
     /// 设计器帮助类。

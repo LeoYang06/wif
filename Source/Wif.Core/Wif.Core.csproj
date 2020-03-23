@@ -64,12 +64,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wif.Utils\Wif.Utils.csproj">
-      <Project>{0F11E648-32C4-4024-89A7-AB9B5556B787}</Project>
-      <Name>Wif.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Setting\" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +72,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj">
+      <Project>{0F11E648-32C4-4024-89A7-AB9B5556B787}</Project>
+      <Name>Wif.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,7 +3,7 @@ using System.Management;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Utilities.Helpers
 {
     /// <summary>
     /// Defines the <see cref="NetHelper" />

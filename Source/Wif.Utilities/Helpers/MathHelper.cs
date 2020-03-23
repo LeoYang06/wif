@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Frontier.Wif.Utils.Helpers
+namespace Frontier.Wif.Utilities.Helpers
 {
     /// <summary>
     /// 数学帮助类。

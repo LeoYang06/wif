@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using Frontier.Wif.Core.Generic;
-using Frontier.Wif.Utils.Extensions;
+using Frontier.Wif.Utilities.Extensions;
 
 namespace Frontier.Wif.Infrastructure.Commands
 {
