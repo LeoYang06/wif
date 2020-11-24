@@ -1,83 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D4BB5FC-7A4F-47A4-B412-E70544F621DB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <TargetFrameworks>net472;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
     <RootNamespace>Frontier.Wif.Core</RootNamespace>
-    <AssemblyName>Wif.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Version>0.1.0</Version>
+    <Authors>LeoYang-Chuese</Authors>
+    <Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
+    <Copyright>Copyright © 2020 LeoYang-Chuese.  All rights reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/LeoYang-Chuese/wif</PackageProjectUrl>
+    <PackageIcon>wif_logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/LeoYang-Chuese/wif.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>WPF;UI;Infrastructure;Utilities;Modern;XAML;Toolkit;Library;.NET;OpenSource</PackageTags>
+    <PackageReleaseNotes>https://github.com/LeoYang-Chuese/wif/releases</PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Output\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.1</LangVersion>
     <DocumentationFile>..\..\Output\Debug\Wif.Core.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Output\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.1</LangVersion>
     <DocumentationFile>..\..\Output\Release\Wif.Core.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Async\AsyncLazy.cs" />
-    <Compile Include="Async\AsyncProperty.cs" />
-    <Compile Include="Async\AsyncPropertyBase.cs" />
-    <Compile Include="Async\IAsyncProperty.cs" />
-    <Compile Include="Cache\BoxCache.cs" />
-    <Compile Include="Collections\AsyncObservableCollection’T.cs" />
-    <Compile Include="Collections\BulkObservableCollection.cs" />
-    <Compile Include="Collections\ConcurrentObservableCollection’T.cs" />
-    <Compile Include="Collections\EnumCollection.cs" />
-    <Compile Include="ComponentModel\PropertyChangedBase.cs" />
-    <Compile Include="ComponentModel\PropertyChangedSingletonBase.cs" />
-    <Compile Include="ComponentModel\ViewModelBase.cs" />
-    <Compile Include="Ensure.cs" />
-    <Compile Include="Generic\SingletonBase.cs" />
-    <Compile Include="Generic\SingletonProvider.cs" />
-    <Compile Include="Generic\UsingLock‘T.cs" />
-    <Compile Include="Generic\WeakEventHandlerManager.cs" />
+    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Setting\" />
+    <None Include="..\..\Resources\Images\wif_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>2.9.7</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PackageReference Include="WpfAnalyzers" Version="3.5.2">
       <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj">
-      <Project>{0F11E648-32C4-4024-89A7-AB9B5556B787}</Project>
-      <Name>Wif.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

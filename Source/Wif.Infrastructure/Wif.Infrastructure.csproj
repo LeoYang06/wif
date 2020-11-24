@@ -1,115 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F13AB426-9BE1-4DE0-BC00-8A4211D37333}</ProjectGuid>
-    <OutputType>Library</OutputType>
+   <TargetFrameworks>net472;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
     <RootNamespace>Frontier.Wif.Infrastructure</RootNamespace>
-    <AssemblyName>Wif.Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Version>0.1.0</Version>
+    <Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
+    <Authors>LeoYang-Chuese</Authors>
+    <Copyright>Copyright © 2020 LeoYang-Chuese.  All rights reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/LeoYang-Chuese/wif</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LeoYang-Chuese/wif.git</RepositoryUrl>
+    <PackageIcon>wif_logo.png</PackageIcon>
+    <PackageTags>WPF;UI;Infrastructure;Utilities;Modern;XAML;Toolkit;Library;.NET;OpenSource</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>https://github.com/LeoYang-Chuese/wif/releases</PackageReleaseNotes>
+    <UserSecretsId>a46f13f6-c033-4863-be99-bcc4634651c6</UserSecretsId>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Output\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.1</LangVersion>
     <DocumentationFile>..\..\Output\Debug\Wif.Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Output\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.1</LangVersion>
     <DocumentationFile>..\..\Output\Release\Wif.Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AttachedBehaviors\ScrollViewerHelper.cs" />
-    <Compile Include="Behaviors\DragInCanvasBehavior.cs" />
-    <Compile Include="Behaviors\ListBoxScrollToEndBehavior.cs" />
-    <Compile Include="Behaviors\ListViewScrollToEndBehaviour.cs" />
-    <Compile Include="Binding\BindingProxy.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Common\GlobalClock.cs" />
-    <Compile Include="MarkupExtensions\EventBindingExtension.cs" />
-    <Compile Include="PanelExtensions\AutoGrid.cs" />
-    <Compile Include="PanelExtensions\AutoStackPanel.cs" />
-    <Compile Include="PanelExtensions\RelativePanel.cs" />
-    <Compile Include="Converters\BoolToValueConverter.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\BoolToWindowStateConverter.cs" />
-    <Compile Include="Converters\ColorToBrushConverter.cs" />
-    <Compile Include="Converters\EnumToDescriptionConverter.cs" />
-    <Compile Include="Converters\EnumToVisibilityConverter.cs" />
-    <Compile Include="EventToCommand\EventBinding.cs" />
-    <Compile Include="EventToCommand\EventBindingCollection.cs" />
-    <Compile Include="EventToCommand\EventToCommandBehavior.cs" />
-    <Compile Include="EventToCommand\RoutedEventCommand.cs" />
-    <Compile Include="EventToCommand\RoutedEventCommandEventArgs.cs" />
-    <Compile Include="MarkupExtensions\CommandBindingExtension.cs" />
-    <Compile Include="MarkupExtensions\CompositeTransformExtension.cs" />
-    <Compile Include="MarkupExtensions\ConverterFactoryExtension.cs" />
-    <Compile Include="MarkupExtensions\DesignTimeBindingExtension.cs" />
-    <Compile Include="MarkupExtensions\EnumBindingSourceExtension.cs" />
-    <Compile Include="MarkupExtensions\EnumValuesExtension.cs" />
-    <Compile Include="MarkupExtensions\LazyBindingExtension.cs" />
-    <Compile Include="MarkupExtensions\MarkupConverter.cs" />
-    <Compile Include="MarkupExtensions\MarkupMultiConverter.cs" />
-    <Compile Include="MarkupExtensions\MethodBindingExtension.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationRules\IPAddressValidationRule.cs" />
-    <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
-    <Compile Include="ValidationRules\SimpleDateValidationRule.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\System.Windows.Interactivity.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wif.Core\Wif.Core.csproj">
-      <Project>{5D4BB5FC-7A4F-47A4-B412-E70544F621DB}</Project>
-      <Name>Wif.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj">
-      <Project>{0f11e648-32c4-4024-89a7-ab9b5556b787}</Project>
-      <Name>Wif.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <Version>2.9.7</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="WpfAnalyzers" Version="3.5.2">
       <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Wif.Core\Wif.Core.csproj" />
+    <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj" />
+  </ItemGroup>
+   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+   <ItemGroup>
+     <None Include="..\..\Resources\Images\wif_logo.png">
+       <Pack>True</Pack>
+       <PackagePath></PackagePath>
+     </None>
+   </ItemGroup>
 </Project>
