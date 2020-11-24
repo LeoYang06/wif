@@ -110,16 +110,6 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The GetTypeLibGuid
-        /// </summary>
-        /// <param name="assembly">The assembly<see cref="Assembly" /></param>
-        /// <returns>The <see cref="Guid" /></returns>
-        public static Guid GetTypeLibGuid(this Assembly assembly)
-        {
-            return Marshal.GetTypeLibGuidForAssembly(assembly);
-        }
-
-        /// <summary>
         /// The GetVersion
         /// </summary>
         /// <param name="assembly">The assembly<see cref="Assembly" /></param>
