@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Management;
 using System.Net;
 using System.Net.Sockets;
 
@@ -13,11 +12,11 @@ namespace Frontier.Wif.Utilities.Helpers
         #region Methods
 
         /// <summary>
-        /// 获得广播地址
+        /// 获得广播地址。
         /// </summary>
-        /// <param name="ipAddress">IP地址</param>
-        /// <param name="subnetMask">子网掩码</param>
-        /// <returns>广播地址</returns>
+        /// <param name="ipAddress">IP地址。</param>
+        /// <param name="subnetMask">子网掩码。</param>
+        /// <returns>广播地址。</returns>
         public static string GetBroadcast(string ipAddress, string subnetMask)
         {
             var ip = IPAddress.Parse(ipAddress).GetAddressBytes();
@@ -29,35 +28,9 @@ namespace Frontier.Wif.Utilities.Helpers
         }
 
         /// <summary>
-        /// 获取子网掩码。
+        /// 获取本地IPv4地址。
         /// </summary>
-        /// <returns></returns>
-        public static string GetBroadcastAddress()
-        {
-            var mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            var nics = mc.GetInstances();
-            foreach (var o in nics)
-            {
-                var nic = (ManagementObject) o;
-                if (Convert.ToBoolean(nic["ipEnabled"]))
-                {
-                    var mac = nic["MacAddress"].ToString(); //Mac地址
-                    var ip = (nic["IPAddress"] as string[])?[0]; //IP地址
-                    var ipsubnet = (nic["IPSubnet"] as string[])?[0]; //子网掩码
-                    var ipgateway = (nic["DefaultIPGateway"] as string[])?[0]; //默认网关
-
-                    var broadcastAddress = GetBroadcast(ip, ipsubnet);
-                    return broadcastAddress;
-                }
-            }
-
-            return "";
-        }
-
-        /// <summary>
-        /// 获取本地IPv4地址
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>IPv4地址。</returns>
         public static string GetLocalIP()
         {
             var localIP = "";
