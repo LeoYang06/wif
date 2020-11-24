@@ -35,7 +35,7 @@
     <ProjectReference Include="..\Wif.Core\Wif.Core.csproj" />
     <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />

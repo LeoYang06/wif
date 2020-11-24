@@ -1,4 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Frontier.Wif.Core.ComponentModel;
 using Wif.Demo.Common;
 
@@ -34,30 +39,30 @@ namespace Wif.Demo
         public MainViewModel()
         {
             var model = MobilePhoneSingletonModel.Instance;
-            model.Brand = Brand.Apple;
-            model.NumberOfCPUCore = NumberOfCPUCore.Quad;
-            model.RAM = RAM._4GB;
-            model.ROM = ROM._64GB;
+            model.Brand            = Brand.Apple;
+            model.NumberOfCPUCore  = NumberOfCPUCore.Quad;
+            model.RAM              = RAM._4GB;
+            model.ROM              = ROM._64GB;
             model.ScreenResolution = ScreenResolution.FHD;
-            model.ScreenSize = 5.2f;
+            model.ScreenSize       = 5.2f;
             MobilePhoneCollection.Add(model);
 
-            model = MobilePhoneSingletonModel.Instance;
-            model.Brand = Brand.Apple;
-            model.NumberOfCPUCore = NumberOfCPUCore.Quad;
-            model.RAM = RAM._4GB;
-            model.ROM = ROM._64GB;
+            model                  = MobilePhoneSingletonModel.Instance;
+            model.Brand            = Brand.Apple;
+            model.NumberOfCPUCore  = NumberOfCPUCore.Quad;
+            model.RAM              = RAM._4GB;
+            model.ROM              = ROM._64GB;
             model.ScreenResolution = ScreenResolution.FHD;
-            model.ScreenSize = 5.2f;
+            model.ScreenSize       = 5.2f;
             MobilePhoneCollection.Add(model);
 
-            model = MobilePhoneSingletonModel.Instance;
-            model.Brand = Brand.Apple;
-            model.NumberOfCPUCore = NumberOfCPUCore.Quad;
-            model.RAM = RAM._4GB;
-            model.ROM = ROM._64GB;
+            model                  = MobilePhoneSingletonModel.Instance;
+            model.Brand            = Brand.Apple;
+            model.NumberOfCPUCore  = NumberOfCPUCore.Quad;
+            model.RAM              = RAM._4GB;
+            model.ROM              = ROM._64GB;
             model.ScreenResolution = ScreenResolution.FHD;
-            model.ScreenSize = 5.2f;
+            model.ScreenSize       = 5.2f;
             MobilePhoneCollection.Add(model);
         }
     }
