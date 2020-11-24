@@ -17,12 +17,12 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\Output\Debug\</OutputPath>
-    <DocumentationFile>..\..\Output\Debug\Wif.Utilities.xml</DocumentationFile>
+    <OutputPath>..\Output\Debug\</OutputPath>
+    <DocumentationFile>..\Output\Debug\Wif.Utilities.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\Output\Release\</OutputPath>
-    <DocumentationFile>..\..\Output\Release\Wif.Utilities.xml</DocumentationFile>
+    <OutputPath>..\Output\Release\</OutputPath>
+    <DocumentationFile>..\Output\Release\Wif.Utilities.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="WpfAnalyzers" Version="3.5.2">

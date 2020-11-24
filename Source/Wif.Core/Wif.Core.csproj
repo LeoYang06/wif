@@ -16,12 +16,12 @@
     <PackageReleaseNotes>https://github.com/LeoYang-Chuese/wif/releases</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\Output\Debug\</OutputPath>
-    <DocumentationFile>..\..\Output\Debug\Wif.Core.xml</DocumentationFile>
+    <OutputPath>..\Output\Debug\</OutputPath>
+    <DocumentationFile>..\Output\Debug\Wif.Core.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\Output\Release\</OutputPath>
-    <DocumentationFile>..\..\Output\Release\Wif.Core.xml</DocumentationFile>
+    <OutputPath>..\Output\Release\</OutputPath>
+    <DocumentationFile>..\Output\Release\Wif.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj" />

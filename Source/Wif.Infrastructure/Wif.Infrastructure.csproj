@@ -17,12 +17,12 @@
     <UserSecretsId>a46f13f6-c033-4863-be99-bcc4634651c6</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\Output\Debug\</OutputPath>
-    <DocumentationFile>..\..\Output\Debug\Wif.Infrastructure.xml</DocumentationFile>
+    <OutputPath>..\Output\Debug\</OutputPath>
+    <DocumentationFile>..\Output\Debug\Wif.Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\Output\Release\</OutputPath>
-    <DocumentationFile>..\..\Output\Release\Wif.Infrastructure.xml</DocumentationFile>
+    <OutputPath>..\Output\Release\</OutputPath>
+    <DocumentationFile>..\Output\Release\Wif.Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
