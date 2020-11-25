@@ -1,12 +1,22 @@
+##### [English](https://github.com/Leolion610/wif/blob/master/README.EN.md)
+
 ![Logo](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_logo.png?raw=true)
 
-# WPF Infrastructure Framework（WIF）    　    　            　 　  [English](https://github.com/Leolion610/wif/blob/master/README.EN.md)
+### WPF Infrastructure Framework（WIF）    　    　            　 　  
 
-WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您快速开发WPF应用程序。
+wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
 
-## 项目起源
+支持 .NET Framework (4.7.2+) 和 .NET Core (3.1 and 5.0)
+
+[![Nuget](https://img.shields.io/nuget/dt/Wif.Infrastructure)](https://www.nuget.org/packages/Wif.Infrastructure/)[![nuget-version](https://img.shields.io/nuget/v/Wif.Infrastructure.svg)](https://www.nuget.org/packages/Wif.Infrastructure)![dotnet-version](https://img.shields.io/badge/.NET Framework-%3E%3D4.7.2-blue.svg)![dotnet-version](https://img.shields.io/badge/.NET Core-%3E%3D3.1-blue.svg) ![csharp-version](https://img.shields.io/badge/C%23-8.0-blue.svg) ![IDE-version](https://img.shields.io/badge/IDE-vs2019-blue.svg)
+
+
+
+### 项目起源
 
 在经过大量的WPF项目开发后，积累了大量好用的Infrastructure，故整理并发布出来，供后来者快速开发WPF应用程序。您可以选择引用生成的dll，也可以拷贝您需要的代码到您的项目中。严格的说该项目不是一个框架，而是由离散的基础设施组成。
+
+
 
 ## 项目组成
 
@@ -18,12 +28,14 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 
 - ##### Wif.Infrastructure：WPF基础设施框架的主要部分，包含Binding、PropertyChanged、MarkupExtensions、Converters、Commands、EventToCommand、Behaviors、ValidationRules等大量实用基础设施。
 
+
+
 ## 组成图
 
 ![组成图](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_ConstitutionalDiagram.png?raw=true)
 
 
-# 博客
+## 博客
 
 > **【[wif 系列](https://www.cnblogs.com/leolion/p/10275027.html)】**
 
@@ -40,6 +52,8 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 
 项目中大部分代码源自于个人积累，同时有一些代码参阅了WPF开发者的分享，这部分代码已注明出处和链接，特此致敬！
 
+
+
 ## 适用人群
 
 该项目中有一些MVVM框架的实现，但是并不用于替代MVVM框架。如果您开发的是一个小型项目，不考虑使用MVVM框架，本项目或许适合您实现简单MVVM模式。
@@ -49,6 +63,8 @@ WPF Infrastructure Framework（WIF）是一个基础设施框架，可帮助您�
 如果您有代码洁癖，追求精致代码，这个项目可能适合您。
 
 如果您是一位WPF初学者，该项目或许可以为您打开一扇门，窥见WPF设计的精妙之处。
+
+
 
 ## Licence
 
