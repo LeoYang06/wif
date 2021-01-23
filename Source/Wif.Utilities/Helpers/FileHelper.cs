@@ -20,7 +20,7 @@ namespace Frontier.Wif.Utilities.Helpers
         {
             using (var writer = new StreamWriter(path, true, Encoding.UTF8))
             {
-                foreach (var content in contents)
+                foreach (string content in contents)
                     writer.WriteLine(content);
             }
         }
@@ -60,13 +60,13 @@ namespace Frontier.Wif.Utilities.Helpers
             if (Directory.Exists(directoryPath))
             {
                 //删除目录中所有的文件
-                var fileNames = Directory.GetFiles(directoryPath);
-                foreach (var t in fileNames)
+                string[] fileNames = Directory.GetFiles(directoryPath);
+                foreach (string t in fileNames)
                     DeleteFile(t);
 
                 //删除目录中所有的子目录
-                var directoryNames = Directory.GetDirectories(directoryPath);
-                foreach (var t in directoryNames)
+                string[] directoryNames = Directory.GetDirectories(directoryPath);
+                foreach (string t in directoryNames)
                     Directory.Delete(t);
             }
         }
@@ -75,13 +75,13 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 检测指定目录中是否存在指定的文件
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
+        /// <param name="searchPattern">The searchPattern <see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
         /// <returns>The <see cref="bool" /></returns>
         public static bool Contains(string directoryPath, string searchPattern, bool isSearchChild)
         {
             //获取指定的文件列表
-            var fileNames = GetFileFullNames(directoryPath, searchPattern, isSearchChild);
+            string[] fileNames = GetFileFullNames(directoryPath, searchPattern, isSearchChild);
 
             //判断指定文件是否存在
             if (fileNames.Length == 0)
@@ -114,13 +114,11 @@ namespace Frontier.Wif.Utilities.Helpers
             if (!Directory.Exists(aimPath))
                 Directory.CreateDirectory(aimPath);
 
-            // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
-            // 如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法
-            // string[] fileList = Directory.GetFiles(srcPath);
-            var fileList = Directory.GetFileSystemEntries(srcPath);
+            // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组 如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法 string[] fileList = Directory.GetFiles(srcPath);
+            string[] fileList = Directory.GetFileSystemEntries(srcPath);
 
             //遍历所有的文件和目录
-            foreach (var file in fileList)
+            foreach (string file in fileList)
                 if (Directory.Exists(file))
                     CopyDir(file, aimPath + Path.GetFileName(file));
                 //否则直接Copy文件
@@ -136,7 +134,7 @@ namespace Frontier.Wif.Utilities.Helpers
         public static void CopyFile(string sourceDir, string destDir)
         {
             sourceDir = sourceDir.Replace("/", "\\");
-            destDir = destDir.Replace("/", "\\");
+            destDir   = destDir.Replace("/", "\\");
             if (File.Exists(sourceDir))
                 File.Copy(sourceDir, destDir, true);
         }
@@ -153,14 +151,14 @@ namespace Frontier.Wif.Utilities.Helpers
             if (!Directory.Exists(fromDirectory))
                 return;
 
-            var directories = Directory.GetDirectories(fromDirectory);
+            string[] directories = Directory.GetDirectories(fromDirectory);
 
             if (directories.Length > 0)
-                foreach (var d in directories)
+                foreach (string d in directories)
                     CopyFolder(d, toDirectory + d.Substring(d.LastIndexOf("\\", StringComparison.Ordinal)));
-            var files = Directory.GetFiles(fromDirectory);
+            string[] files = Directory.GetFiles(fromDirectory);
             if (files.Length > 0)
-                foreach (var s in files)
+                foreach (string s in files)
                     File.Copy(s, toDirectory + s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal)), true);
         }
 
@@ -171,7 +169,7 @@ namespace Frontier.Wif.Utilities.Helpers
         public static void CreateDirectory(string filePath)
         {
             // 检查目录是否存在
-            var dirPath = Path.GetDirectoryName(filePath);
+            string dirPath = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath ?? throw new InvalidOperationException());
         }
@@ -260,16 +258,16 @@ namespace Frontier.Wif.Utilities.Helpers
             if (!Directory.Exists(fromDirectory))
                 return;
 
-            var directories = Directory.GetDirectories(fromDirectory);
+            string[] directories = Directory.GetDirectories(fromDirectory);
 
             if (directories.Length > 0)
-                foreach (var d in directories)
+                foreach (string d in directories)
                     DeleteFolderFiles(d, toDirectory + d.Substring(d.LastIndexOf("\\", StringComparison.Ordinal)));
 
-            var files = Directory.GetFiles(fromDirectory);
+            string[] files = Directory.GetFiles(fromDirectory);
 
             if (files.Length > 0)
-                foreach (var s in files)
+                foreach (string s in files)
                     File.Delete(toDirectory + s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal)));
         }
 
@@ -281,7 +279,7 @@ namespace Frontier.Wif.Utilities.Helpers
         {
             if (!File.Exists(path))
             {
-                var fs = File.Create(path);
+                FileStream fs = File.Create(path);
                 fs.Close();
             }
         }
@@ -290,11 +288,10 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 获取指定目录及子目录中所有子目录列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
+        /// <param name="searchPattern">The searchPattern <see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
         /// <returns>The <see cref="string[]" /></returns>
-        public static string[] GetDirectories(string directoryPath, string searchPattern,
-            bool isSearchChild)
+        public static string[] GetDirectories(string directoryPath, string searchPattern, bool isSearchChild)
         {
             if (isSearchChild)
                 return Directory.GetDirectories(directoryPath, searchPattern, SearchOption.AllDirectories);
@@ -311,12 +308,12 @@ namespace Frontier.Wif.Utilities.Helpers
             if (!Directory.Exists(dirPath))
                 return 0;
             long len = 0;
-            var di = new DirectoryInfo(dirPath);
-            foreach (var fi in di.GetFiles())
+            var  di  = new DirectoryInfo(dirPath);
+            foreach (FileInfo fi in di.GetFiles())
                 len += fi.Length;
             var dis = di.GetDirectories();
             if (dis.Length > 0)
-                foreach (var t in dis)
+                foreach (DirectoryInfo t in dis)
                     len += GetDirectoryLength(t.FullName);
 
             return len;
@@ -338,15 +335,13 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 获取指定目录及子目录中所有子目录名称列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
+        /// <param name="searchPattern">The searchPattern <see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
         /// <returns>The <see cref="IEnumerable{string}" /></returns>
-        public static IEnumerable<string> GetDirectoryNames(string directoryPath, string searchPattern,
-            bool isSearchChild)
+        public static IEnumerable<string> GetDirectoryNames(string directoryPath, string searchPattern, bool isSearchChild)
         {
-            var dirInfo = new DirectoryInfo(directoryPath);
-            var dirInfos = dirInfo.GetDirectories(searchPattern,
-                isSearchChild ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+            var dirInfo  = new DirectoryInfo(directoryPath);
+            var dirInfos = dirInfo.GetDirectories(searchPattern, isSearchChild ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
             return dirInfos.Select(x => x.Name);
         }
 
@@ -369,11 +364,10 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 获取指定目录及子目录中所有文件列表
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">The searchPattern<see cref="string" /></param>
+        /// <param name="searchPattern">The searchPattern <see cref="string" /></param>
         /// <param name="isSearchChild">是否搜索子目录</param>
         /// <returns>The <see cref="string[]" /></returns>
-        public static string[] GetFileFullNames(string directoryPath, string searchPattern,
-            bool isSearchChild)
+        public static string[] GetFileFullNames(string directoryPath, string searchPattern, bool isSearchChild)
         {
             //如果目录不存在，则抛出异常
             if (!Directory.Exists(directoryPath))
@@ -382,6 +376,32 @@ namespace Frontier.Wif.Utilities.Helpers
             if (isSearchChild)
                 return Directory.GetFiles(directoryPath, searchPattern, SearchOption.AllDirectories);
             return Directory.GetFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        /// 获取一个文件的长度(GB MB KB)
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>
+        /// <returns>The <see cref="int" /></returns>
+        public static string GetFileFullSize(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                //创建一个文件对象
+                var fi = new FileInfo(filePath);
+                //获取文件的大小
+                long lenght = fi.Length;
+
+                if (lenght / 1048576.00 > 1024)
+                    return Math.Round(lenght / 1073741824.00, 2) + "GB";
+
+                if (lenght / 1024.00 > 1024)
+                    return Math.Round(lenght / 1048576.00, 2) + "MB";
+
+                return Math.Round(lenght / 1024.00, 2) + "KB";
+            }
+
+            throw new FileNotFoundException("未能找到文件:" + filePath);
         }
 
         /// <summary>
@@ -408,38 +428,8 @@ namespace Frontier.Wif.Utilities.Helpers
                 //创建一个文件对象
                 var fi = new FileInfo(filePath);
                 //获取文件的大小
-                var lenght = (int)fi.Length;
+                var lenght = (int) fi.Length;
                 return lenght / 1048576;
-            }
-
-            throw new FileNotFoundException("未能找到文件:" + filePath);
-        }
-
-        /// <summary>
-        /// 获取一个文件的长度(GB MB KB)
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        /// <returns>The <see cref="int" /></returns>
-        public static string GetFileFullSize(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                //创建一个文件对象
-                var fi = new FileInfo(filePath);
-                //获取文件的大小
-                var lenght = fi.Length;
-
-                if ((lenght / 1048576.00) > 1024)
-                {
-                    return Math.Round(lenght / 1073741824.00, 2) + "GB";
-                }
-
-                if ((lenght / 1024.00) > 1024)
-                {
-                    return Math.Round(lenght / 1048576.00, 2) + "MB";
-                }
-
-                return Math.Round(lenght / 1024.00, 2) + "KB";
             }
 
             throw new FileNotFoundException("未能找到文件:" + filePath);
@@ -455,7 +445,7 @@ namespace Frontier.Wif.Utilities.Helpers
             try
             {
                 //将文本文件的各行读到一个字符串数组中
-                var rows = File.ReadAllLines(filePath);
+                string[] rows = File.ReadAllLines(filePath);
 
                 //返回行数
                 return rows.Length;
@@ -475,7 +465,7 @@ namespace Frontier.Wif.Utilities.Helpers
         {
             if (!Directory.Exists(directoryPath))
                 return string.Empty;
-            var directoryInfo = new DirectoryInfo(directoryPath).Parent;
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath).Parent;
             if (directoryInfo != null)
                 return directoryInfo.FullName;
             return string.Empty;
@@ -489,12 +479,12 @@ namespace Frontier.Wif.Utilities.Helpers
         public static bool IsEmptyDirectory(string directoryPath)
         {
             //判断是否存在文件
-            var fileNames = GetFileFullNames(directoryPath);
+            string[] fileNames = GetFileFullNames(directoryPath);
             if (fileNames.Length > 0)
                 return false;
 
             //判断是否存在文件夹
-            var directoryNames = Directory.GetDirectories(directoryPath);
+            string[] directoryNames = Directory.GetDirectories(directoryPath);
             if (directoryNames.Length > 0)
                 return false;
 
@@ -509,7 +499,7 @@ namespace Frontier.Wif.Utilities.Helpers
         public static void MoveFile(string sourceFilePath, string destDirectoryPath)
         {
             //获取源文件的名称
-            var sourceFileName = Path.GetFileName(sourceFilePath);
+            string sourceFileName = Path.GetFileName(sourceFilePath);
 
             if (Directory.Exists(destDirectoryPath))
             {
@@ -592,7 +582,7 @@ namespace Frontier.Wif.Utilities.Helpers
             if (File.Exists(filePath))
             {
                 var totalNum = 0;
-                var count = GetLineCount(filePath);
+                int count    = GetLineCount(filePath);
                 using (var reader = new StreamReader(filePath, encoding))
                 {
                     for (var i = 0; i < count; i++)
@@ -619,38 +609,32 @@ namespace Frontier.Wif.Utilities.Helpers
         }
 
         /// <summary>
-        /// 从文件的指定行开始读取指定行数的文本。
+        /// 从文件的指定行开始读取文本。
         /// </summary>
         /// <param name="filePath">文件路径。</param>
         /// <param name="encoding">读取文件的编码。</param>
-        /// <param name="startLine">读取文本的起始行，索引从1开始。</param>
-        /// <param name="lineLenght">读取文本的行数。</param>
-        /// <returns>该文件的所有行。</returns>
-        public static List<string> ReadLines(string filePath, Encoding encoding, int startLine, int lineLenght)
+        /// <param name="isIgnoreWhiteSpace">是否忽略空白行，默认保留。</param>
+        /// <returns>读取的所有行。</returns>
+        public static List<string> ReadLines(string filePath, Encoding encoding, bool isIgnoreWhiteSpace = false)
         {
             var lines = new List<string>();
             if (File.Exists(filePath))
-            {
-                var num = 0;
-                var totalNum = 0;
                 using (var reader = new StreamReader(filePath, encoding))
                 {
                     string line;
-                    while (totalNum < lineLenght && (line = reader.ReadLine()) != null)
-                    {
-                        num++;
-                        if (num < startLine)
-                            continue;
-
-                        lines[totalNum] = line;
-                        totalNum++;
-                    }
+                    while ((line = reader.ReadLine()) != null)
+                        if (isIgnoreWhiteSpace)
+                        {
+                            if (!string.IsNullOrWhiteSpace(line))
+                                lines.Add(line);
+                        }
+                        else
+                        {
+                            lines.Add(line);
+                        }
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("未能找到文件:" + filePath);
-            }
 
             return lines;
         }
@@ -659,11 +643,11 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 从文件的指定行开始读取文本。
         /// </summary>
         /// <param name="filePath">文件路径。</param>
-        /// <param name="encoding">读取文件的编码。</param>
         /// <param name="startLine">读取文本的起始行，索引从1开始。</param>
+        /// <param name="encoding">读取文件的编码。</param>
         /// <param name="isIgnoreWhiteSpace">是否忽略空白行，默认保留。</param>
-        /// <returns>该文件的所有行。</returns>
-        public static List<string> ReadLines(string filePath, Encoding encoding, int startLine = 0, bool isIgnoreWhiteSpace = false)
+        /// <returns>读取的所有行。</returns>
+        public static List<string> ReadLines(string filePath, int startLine, Encoding encoding, bool isIgnoreWhiteSpace = false)
         {
             var lines = new List<string>();
             if (File.Exists(filePath))
@@ -687,6 +671,52 @@ namespace Frontier.Wif.Utilities.Helpers
                         {
                             lines.Add(line);
                         }
+                    }
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("未能找到文件:" + filePath);
+            }
+
+            return lines;
+        }
+
+        /// <summary>
+        /// 从文件的指定行开始读取指定行数的文本。
+        /// </summary>
+        /// <param name="filePath">文件路径。</param>
+        /// <param name="startLine">读取文本的起始行，索引从1开始。</param>
+        /// <param name="lineLenght">读取文本的行数。</param>
+        /// <param name="encoding">读取文件的编码。</param>
+        /// <param name="isIgnoreWhiteSpace">是否忽略空白行，默认保留。</param>
+        /// <returns>读取的所有行。</returns>
+        public static List<string> ReadLines(string filePath, int startLine, int lineLenght, Encoding encoding, bool isIgnoreWhiteSpace = false)
+        {
+            var lines = new List<string>();
+            if (File.Exists(filePath))
+            {
+                var num      = 0;
+                var totalNum = 0;
+                using (var reader = new StreamReader(filePath, encoding))
+                {
+                    string line;
+                    while (totalNum < lineLenght && (line = reader.ReadLine()) != null)
+                    {
+                        num++;
+                        if (num < startLine)
+                            continue;
+
+                        if (isIgnoreWhiteSpace)
+                        {
+                            if (!string.IsNullOrWhiteSpace(line))
+                                lines.Add(line);
+                        }
+                        else
+                        {
+                            lines.Add(line);
+                        }
+                        totalNum++;
                     }
                 }
             }
