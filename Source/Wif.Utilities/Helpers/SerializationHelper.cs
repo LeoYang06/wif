@@ -9,9 +9,9 @@ using System.Xml.Serialization;
 namespace Frontier.Wif.Utilities.Helpers
 {
     /// <summary>
-    /// 各种串行化的帮助类
+    /// 各种串行化的帮助类。
     /// </summary>
-    public static class SerializeHelper
+    public static class SerializationHelper
     {
         #region Methods
 
