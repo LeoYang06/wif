@@ -2,7 +2,6 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -23,34 +22,8 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <returns></returns>
         public static T DeserializeFromBase64String<T>(string str)
         {
-            var buffer = Convert.FromBase64String(str);
+            byte[] buffer = Convert.FromBase64String(str);
             return DeserializeFromBytes<T>(buffer);
-        }
-
-        /// <summary>
-        /// 将文件反序列化成指定类型的对象。
-        ///     <remarks>自动识别编码。</remarks>
-        /// </summary>
-        /// <typeparam name="T">对象的类型。</typeparam>
-        /// <param name="path">路径。</param>
-        /// <returns>反序列化的对象。</returns>
-        public static T DeserializeFromXmlFile<T>(string path)
-        {
-            StreamReader reader = null;
-            try
-            {
-                reader = new StreamReader(path);
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T) xmlSerializer.Deserialize(reader);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                reader?.Close();
-            }
         }
 
         /// <summary>
@@ -59,29 +32,67 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <typeparam name="T">对象的类型。</typeparam>
         /// <param name="xml">对象序列化后的字符串。</param>
         /// <returns></returns>
-        public static T DeserializeFromXmlString<T>(string xml)
+        public static T DeserializeObjectFromXmlString<T>(string xml)
         {
             T target = default;
-            StringReader sr = null;
-
+            StringReader strReader = null;
             try
             {
-                var xs = new XmlSerializer(typeof(T));
-
-                sr = new StringReader(xml); // containing the XML data to read
-                using (var xtr = new XmlTextReader(sr))
+                var serializer = new XmlSerializer(typeof(T));
+                // containing the XML data to read
+                strReader = new StringReader(xml);
+                var settings = new XmlReaderSettings {Async = true};
+                using (var xtr = XmlReader.Create(strReader, settings))
                 {
-                    sr = null;
-                    var o = xs.Deserialize(xtr);
-                    if (o is T variable) target = variable;
+                    strReader = null;
+                    object o = serializer.Deserialize(xtr);
+                    if (o is T variable)
+                        target = variable;
                 }
             }
             finally
             {
-                sr?.Close();
+                strReader?.Close();
+                strReader?.Dispose();
             }
 
             return target;
+        }
+
+        /// <summary>
+        /// 将文件反序列化成指定类型的对象。
+        /// </summary>
+        /// <typeparam name="T">目标对象的类型。</typeparam>
+        /// <param name="sourceFile">源文件路径。</param>
+        /// <returns>反序列化的目标对象。</returns>
+        public static T DeserializeObjectFromXmlFile<T>(string sourceFile) where T : class
+        {
+            return DeserializeObjectFromXmlFile(sourceFile, typeof(T)) as T;
+        }
+
+        /// <summary>
+        /// 将文件反序列化成指定类型的对象。
+        /// </summary>
+        /// <param name="sourceFile">源文件路径。</param>
+        /// <param name="targetTypeInfo">目标对象的类型</param>
+        /// <returns>反序列化的目标对象。</returns>
+        public static object DeserializeObjectFromXmlFile(string sourceFile, Type targetTypeInfo)
+        {
+            FileStream fileStream = null;
+            try
+            {
+                using (fileStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read))
+                {
+                    var serializer = new XmlSerializer(targetTypeInfo);
+                    object targetObject = serializer.Deserialize(fileStream);
+                    return targetObject;
+                }
+            }
+            finally
+            {
+                fileStream?.Close();
+                fileStream?.Dispose();
+            }
         }
 
         /// <summary>
@@ -92,70 +103,71 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <returns></returns>
         public static string SerializeToBase64String<T>(T obj)
         {
-            var buffer = SerializeToBytes(obj);
+            byte[] buffer = SerializeToBytes(obj);
             return Convert.ToBase64String(buffer);
-        }
-
-        /// <summary>
-        /// 将对象序列化为Xml文件。
-        /// </summary>
-        /// <param name="obj">对象。</param>
-        /// <param name="path">路径。</param>
-        public static void SerializeToXmlFile(object obj, string path)
-        {
-            XmlTextWriter writer = null;
-            try
-            {
-                writer = new XmlTextWriter(path, Encoding.Default) {Formatting = Formatting.Indented};
-                var xmlSerializer = new XmlSerializer(obj.GetType());
-                xmlSerializer.Serialize(writer, obj);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                writer?.Close();
-            }
         }
 
         /// <summary>
         /// 将对象序列化成Xml字符串。
         /// </summary>
         /// <typeparam name="T">对象的类型。</typeparam>
-        /// <param name="target">被序列化的对象。</param>
+        /// <param name="sourceObject">被序列化的对象。</param>
+        /// <param name="prefix">The prefix associated with an XML namespace.</param>
+        /// <param name="ns">An XML namespace.</param>
         /// <returns></returns>
-        public static string SerializeToXmlString<T>(T target)
+        public static string SerializeObjectToXmlString<T>(T sourceObject, string prefix = "", string ns = "")
         {
-            string str = null;
-            MemoryStream ms = null;
-
+            string xmlString = null;
+            StringWriter stringWriter = null;
+            XmlWriter xmlWriter = null;
             try
             {
-                var xs = new XmlSerializer(typeof(T));
-                // stream to which you want to write.
-                ms = new MemoryStream();
-                using (var xtw = new XmlTextWriter(ms, Encoding.Default)
-                {
-                        Formatting = Formatting.Indented
-                })
-                {
-                    ms = null;
-                    xs.Serialize(xtw, target);
-                    xtw.BaseStream.Seek(0, SeekOrigin.Begin);
-                    using (var sr = new StreamReader(xtw.BaseStream))
-                    {
-                        str = sr.ReadToEnd();
-                    }
-                }
+                stringWriter = new StringWriter();
+
+                var xmlNamespaces = new XmlSerializerNamespaces();
+                xmlNamespaces.Add(prefix, ns);
+                var settings = new XmlWriterSettings {Indent = true, IndentChars = "\t"};
+                xmlWriter = XmlWriter.Create(stringWriter, settings);
+
+                var serializer = new XmlSerializer(typeof(T));
+                serializer.Serialize(xmlWriter, sourceObject, xmlNamespaces);
+                xmlString = xmlWriter.ToString();
             }
             finally
             {
-                ms?.Close();
+                xmlWriter?.Close();
+                xmlWriter?.Dispose();
+                stringWriter?.Close();
+                stringWriter?.Dispose();
             }
 
-            return str;
+            return xmlString;
+        }
+
+        /// <summary>
+        /// 将对象序列化为Xml文件。
+        /// </summary>
+        /// <param name="sourceObject">源对象。</param>
+        /// <param name="targetFile">序列化文件存储路径。</param>
+        /// <param name="prefix">The prefix associated with an XML namespace.</param>
+        /// <param name="ns">An XML namespace.</param>
+        public static void SerializeObjectToXmlFile(object sourceObject, string targetFile, string prefix = "", string ns = "")
+        {
+            XmlWriter xmlWriter = null;
+            try
+            {
+                var xmlNamespaces = new XmlSerializerNamespaces();
+                xmlNamespaces.Add(prefix, ns);
+                var settings = new XmlWriterSettings {Indent = true, IndentChars = "\t"};
+                xmlWriter = XmlWriter.Create(targetFile, settings);
+                var xmlSerializer = new XmlSerializer(sourceObject.GetType());
+                xmlSerializer.Serialize(xmlWriter, sourceObject, xmlNamespaces);
+            }
+            finally
+            {
+                xmlWriter?.Close();
+                xmlWriter?.Dispose();
+            }
         }
 
         /// <summary>
@@ -171,7 +183,7 @@ namespace Frontier.Wif.Utilities.Helpers
             T result;
             using (var memoryStream = new MemoryStream(source))
             {
-                obj = (T) formatter.Deserialize(memoryStream);
+                obj    = (T) formatter.Deserialize(memoryStream);
                 result = obj;
             }
 
