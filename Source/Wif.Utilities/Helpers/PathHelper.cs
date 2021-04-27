@@ -15,19 +15,44 @@ namespace Frontier.Wif.Utilities.Helpers
     public enum PathComponent
     {
         /// <summary>
-        /// Defines the AssemblyCompany
+        /// 定义程序集公司名称。
         /// </summary>
         AssemblyCompany,
 
         /// <summary>
-        /// Defines the AssemblyName
+        /// 定义程序集名称。
         /// </summary>
         AssemblyName,
 
         /// <summary>
-        /// Defines the AssemblyVersion
+        /// 定义程序集版本号。
         /// </summary>
-        AssemblyVersion
+        AssemblyVersion,
+
+        /// <summary>
+        /// 定义程序集主版本号。
+        /// </summary>
+        AssemblyMajorVersion,
+
+        /// <summary>
+        /// 定义程序集主版本号，次版本号补0。
+        /// </summary>
+        AssemblyLongMajorVersion,
+
+        /// <summary>
+        /// 定义程序集次版本号。
+        /// </summary>
+        AssemblyMinorVersion,
+
+        /// <summary>
+        /// 定义程序集修订号，对应Version中的Build。
+        /// </summary>
+        AssemblyRevisionVersion,
+
+        /// <summary>
+        /// 定义程序集构建号，对应Version中的Revision。
+        /// </summary>
+        AssemblyBuildVersion
     }
 
     #endregion
@@ -48,7 +73,7 @@ namespace Frontier.Wif.Utilities.Helpers
         public static string GetSpecialFolder(Environment.SpecialFolder specialFolder, params string[] paths)
         {
             var rootFolder = Environment.GetFolderPath(specialFolder, Environment.SpecialFolderOption.Create);
-            var pathList = new[] {rootFolder}.Concat(paths);
+            var pathList = new[] { rootFolder }.Concat(paths);
             return Path.Combine(pathList.ToArray());
         }
 
@@ -65,10 +90,28 @@ namespace Frontier.Wif.Utilities.Helpers
             var assembly = Assembly.GetEntryAssembly();
             if (components.Contains(PathComponent.AssemblyCompany))
                 paths.Add(assembly.GetCompany());
+
             if (components.Contains(PathComponent.AssemblyName))
-                paths.Add(assembly.GetName().Name);
+                paths.Add(assembly?.GetName().Name);
+
             if (components.Contains(PathComponent.AssemblyVersion))
-                paths.Add(assembly.GetName().Version.ToString());
+                paths.Add(assembly?.GetName().Version.ToString());
+
+            if (components.Contains(PathComponent.AssemblyMajorVersion))
+                paths.Add(assembly?.GetName().Version.Major.ToString());
+
+            if (components.Contains(PathComponent.AssemblyLongMajorVersion))
+                paths.Add(assembly?.GetName().Version.Major.ToString("F1"));
+
+            if (components.Contains(PathComponent.AssemblyMinorVersion))
+                paths.Add(assembly?.GetName().Version.Minor.ToString());
+
+            if (components.Contains(PathComponent.AssemblyRevisionVersion))
+                paths.Add(assembly?.GetName().Version.Build.ToString());
+
+            if (components.Contains(PathComponent.AssemblyBuildVersion))
+                paths.Add(assembly?.GetName().Version.Revision.ToString());
+
             return GetSpecialFolder(specialFolder, paths.ToArray());
         }
 
