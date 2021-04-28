@@ -134,7 +134,7 @@ namespace Frontier.Wif.Utilities.Helpers
         public static void CopyFile(string sourceDir, string destDir)
         {
             sourceDir = sourceDir.Replace("/", "\\");
-            destDir   = destDir.Replace("/", "\\");
+            destDir = destDir.Replace("/", "\\");
             if (File.Exists(sourceDir))
                 File.Copy(sourceDir, destDir, true);
         }
@@ -163,13 +163,30 @@ namespace Frontier.Wif.Utilities.Helpers
         }
 
         /// <summary>
-        /// 创建目录，支持文件的目录创建。
+        /// 判断文件路径是否是文件夹。
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">文件或文件夹路径。</param>
+        /// <returns></returns>
+        public static bool IsDirectory(string filePath)
+        {
+            // 判断是文件还是文件夹。
+            string extension = Path.GetExtension(filePath);
+            return string.IsNullOrWhiteSpace(extension);
+        }
+
+        /// <summary>
+        /// 创建目录，如果是文件路径则创建文件的父目录。
+        /// </summary>
+        /// <param name="filePath">文件或文件夹路径。</param>
         public static void CreateDirectory(string filePath)
         {
-            // 检查目录是否存在
-            string dirPath = Path.GetDirectoryName(filePath);
+            string dirPath = filePath;
+            if (!IsDirectory(filePath))
+            {
+                dirPath = Path.GetDirectoryName(filePath);
+            }
+
+            // 检查目录是否存在。
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath ?? throw new InvalidOperationException());
         }
@@ -308,7 +325,7 @@ namespace Frontier.Wif.Utilities.Helpers
             if (!Directory.Exists(dirPath))
                 return 0;
             long len = 0;
-            var  di  = new DirectoryInfo(dirPath);
+            var di = new DirectoryInfo(dirPath);
             foreach (FileInfo fi in di.GetFiles())
                 len += fi.Length;
             var dis = di.GetDirectories();
@@ -340,7 +357,7 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <returns>The <see cref="IEnumerable{string}" /></returns>
         public static IEnumerable<string> GetDirectoryNames(string directoryPath, string searchPattern, bool isSearchChild)
         {
-            var dirInfo  = new DirectoryInfo(directoryPath);
+            var dirInfo = new DirectoryInfo(directoryPath);
             var dirInfos = dirInfo.GetDirectories(searchPattern, isSearchChild ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
             return dirInfos.Select(x => x.Name);
         }
@@ -428,7 +445,7 @@ namespace Frontier.Wif.Utilities.Helpers
                 //创建一个文件对象
                 var fi = new FileInfo(filePath);
                 //获取文件的大小
-                var lenght = (int) fi.Length;
+                var lenght = (int)fi.Length;
                 return lenght / 1048576;
             }
 
@@ -582,7 +599,7 @@ namespace Frontier.Wif.Utilities.Helpers
             if (File.Exists(filePath))
             {
                 var totalNum = 0;
-                int count    = GetLineCount(filePath);
+                int count = GetLineCount(filePath);
                 using (var reader = new StreamReader(filePath, encoding))
                 {
                     for (var i = 0; i < count; i++)
@@ -696,7 +713,7 @@ namespace Frontier.Wif.Utilities.Helpers
             var lines = new List<string>();
             if (File.Exists(filePath))
             {
-                var num      = 0;
+                var num = 0;
                 var totalNum = 0;
                 using (var reader = new StreamReader(filePath, encoding))
                 {
