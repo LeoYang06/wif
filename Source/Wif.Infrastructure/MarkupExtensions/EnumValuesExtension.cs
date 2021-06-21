@@ -5,7 +5,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
 {
     /// <summary>
     /// Defines the <see cref="EnumValuesExtension" />
-    ///     http://tlevesque.developpez.com/dotnet/wpf-markup-extensions/
+    /// http://tlevesque.developpez.com/dotnet/wpf-markup-extensions/
     /// </summary>
     [MarkupExtensionReturnType(typeof(Array))]
     public class EnumValuesExtension : MarkupExtension

@@ -5,6 +5,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
 {
     /// <summary>
     /// Markup extension for Enum values.
+    /// https://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
     /// </summary>
     public class EnumBindingSourceExtension
             : MarkupExtension
