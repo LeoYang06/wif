@@ -15,6 +15,7 @@
     <PackageIcon>wif_logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/LeoYang-Chuese/wif.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\Output\Debug\</OutputPath>
