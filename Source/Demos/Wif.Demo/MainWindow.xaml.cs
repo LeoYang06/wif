@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Frontier.Wif.Utilities.Helpers;
 
 namespace Wif.Demo
 {
@@ -28,6 +29,14 @@ namespace Wif.Demo
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             DataContext = new MainViewModel();
+        }
+
+        private void CreateDirectory_OnClick(object sender, RoutedEventArgs e)
+        {
+            var file = @"D:\Users\leoli\Documents\MPSExport\test_file_dir\test_file.txt";
+            var dir = @"D:\Users\leoli\Documents\MPSExport\test_dir";
+            FileHelper.CreateDirectory(file);
+            FileHelper.CreateDirectory(dir);
         }
     }
 }

@@ -104,15 +104,15 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <remarks>如果目标文件夹为只读属性就会报错</remarks>
         /// </summary>
         /// <param name="srcPath">原始路径</param>
-        /// <param name="aimPath">目标文件夹</param>
-        public static void CopyDir(string srcPath, string aimPath)
+        /// <param name="destPath">目标文件夹</param>
+        public static void CopyDir(string srcPath, string destPath)
         {
             // 检查目标目录是否以目录分割字符结束如果不是则添加之
-            if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
-                aimPath += Path.DirectorySeparatorChar;
+            if (destPath[destPath.Length - 1] != Path.DirectorySeparatorChar)
+                destPath += Path.DirectorySeparatorChar;
             // 判断目标目录是否存在如果不存在则新建之
-            if (!Directory.Exists(aimPath))
-                Directory.CreateDirectory(aimPath);
+            if (!Directory.Exists(destPath))
+                Directory.CreateDirectory(destPath);
 
             // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组 如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法 string[] fileList = Directory.GetFiles(srcPath);
             string[] fileList = Directory.GetFileSystemEntries(srcPath);
@@ -120,10 +120,10 @@ namespace Frontier.Wif.Utilities.Helpers
             //遍历所有的文件和目录
             foreach (string file in fileList)
                 if (Directory.Exists(file))
-                    CopyDir(file, aimPath + Path.GetFileName(file));
+                    CopyDir(file, destPath + Path.GetFileName(file));
                 //否则直接Copy文件
                 else
-                    File.Copy(file, aimPath + Path.GetFileName(file), true);
+                    File.Copy(file, destPath + Path.GetFileName(file), true);
         }
 
         /// <summary>
@@ -589,7 +589,7 @@ namespace Frontier.Wif.Utilities.Helpers
         /// 读取所有文本
         /// </summary>
         /// <param name="filePath">文件路径</param>
-        /// <param name="startLine">读取文本的起始行。</param>
+        /// <param name="startLine">开始读取文本的起始行。</param>
         /// <param name="lineLenght">读取行数量</param>
         /// <param name="encoding">读取文件的编码。</param>
         /// <returns>从指定行开始的所有文本</returns>
@@ -598,6 +598,7 @@ namespace Frontier.Wif.Utilities.Helpers
             var stringBuilder = new StringBuilder();
             if (File.Exists(filePath))
             {
+
                 var totalNum = 0;
                 int count = GetLineCount(filePath);
                 using (var reader = new StreamReader(filePath, encoding))
@@ -746,22 +747,39 @@ namespace Frontier.Wif.Utilities.Helpers
         }
 
         /// <summary>
-        /// 将文本内容写入文件。
+        /// 创建一个新文件，向其中写入指定的字符串，然后关闭文件。 如果目标文件已存在，则覆盖该文件。
         /// </summary>
-        /// <param name="filePath">文件路径</param>
-        /// <param name="content">写入的内容</param>
+        /// <param name="filePath">要写入的文件路径。</param>
+        /// <param name="content">要写入文件的字符串。</param>
         public static void WriteAllText(string filePath, string content)
         {
             // 创建目录
             CreateDirectory(filePath);
 
             // 写入文本内容
-            using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
+            using var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            using var fs = new StreamWriter(fileStream, Encoding.UTF8);
+            fs.Write(content);
+        }
+
+        /// <summary>
+        /// 创建一个新文件，向其中写入一个字符串类型的二维集合的集合，然后关闭该文件。
+        /// </summary>
+        /// <param name="filePath">要写入的文件路径。</param>
+        /// <param name="textLineFields">要写入文件的字符串类型的二维集合。</param>
+        /// <param name="delimiter">分隔符。</param>
+        /// <returns>是否完成写入操作。</returns>
+        public static void WriteAllLines(string filePath, List<List<string>> textLineFields, string delimiter)
+        {
+            // 创建目录
+            CreateDirectory(filePath);
+
+            // 写入文本内容
+            using var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            using var fs = new StreamWriter(fileStream, Encoding.Default);
+            foreach (string strLine in textLineFields.Select(textLine => string.Join(delimiter, textLine)))
             {
-                using (var fs = new StreamWriter(fileStream, Encoding.UTF8))
-                {
-                    fs.Write(content);
-                }
+                fs.WriteLine(strLine);
             }
         }
     }

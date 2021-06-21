@@ -47,24 +47,32 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView x:Name="ListViewMobiePhone"
-                  ItemsSource="{Binding MobilePhoneCollection}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn CellTemplate="{StaticResource Brand}"
-                                    Header="品牌" />
-                    <GridViewColumn CellTemplate="{StaticResource NumberOfCPUCore}"
-                                    Header="CPU核数" />
-                    <GridViewColumn CellTemplate="{StaticResource RAM}"
-                                    Header="运行内存" />
-                    <GridViewColumn CellTemplate="{StaticResource ROM}"
-                                    Header="机身内存" />
-                    <GridViewColumn CellTemplate="{StaticResource ScreenResolution}"
-                                    Header="屏幕分辨率" />
-                    <GridViewColumn CellTemplate="{StaticResource ScreenSize}"
-                                    Header="屏幕尺寸                                     " />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <TabControl>
+            <TabItem>
+                <ListView x:Name="ListViewMobiePhone"
+                          ItemsSource="{Binding MobilePhoneCollection}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn CellTemplate="{StaticResource Brand}"
+                                            Header="品牌" />
+                            <GridViewColumn CellTemplate="{StaticResource NumberOfCPUCore}"
+                                            Header="CPU核数" />
+                            <GridViewColumn CellTemplate="{StaticResource RAM}"
+                                            Header="运行内存" />
+                            <GridViewColumn CellTemplate="{StaticResource ROM}"
+                                            Header="机身内存" />
+                            <GridViewColumn CellTemplate="{StaticResource ScreenResolution}"
+                                            Header="屏幕分辨率" />
+                            <GridViewColumn CellTemplate="{StaticResource ScreenSize}"
+                                            Header="屏幕尺寸                                     " />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="FileHelper Samples">
+                <Button Click="CreateDirectory_OnClick"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
