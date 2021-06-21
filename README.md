@@ -69,4 +69,4 @@ wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
 
 ## Licence
 
-该项目根据[MIT许可证授权](https://github.com/Leolion610/wif/blob/master/LICENSE)。
+该项目根据[MIT许可证授权](https://github.com/LeoYang-Chuese/wif/blob/master/LICENSE)。
