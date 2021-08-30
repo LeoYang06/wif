@@ -21,7 +21,7 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The Run
+        /// 支持异步执行工作委托和同步执行完成委托的扩展。
         /// </summary>
         /// <param name="workAction">The action<see cref="Action"/></param>
         /// <param name="completedAction">The completedAction<see cref="Action"/></param>
@@ -38,7 +38,7 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The Run
+        /// 支持异步执行工作委托和同步执行完成委托的扩展。
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="workAction">The action<see cref="Action"/></param>
@@ -56,7 +56,7 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The Run
+        /// 支持异步执行工作委托和同步执行完成委托的扩展。
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="workFunction">The function<see cref="Func{TResult}"/></param>
@@ -76,7 +76,7 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The Run
+        /// 支持异步执行工作委托和同步执行完成委托的扩展。
         /// </summary>
         /// <typeparam name="TWorkResult"></typeparam>
         /// <typeparam name="TResult"></typeparam>
@@ -96,7 +96,7 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The Run
+        /// 支持异步执行工作委托和同步执行完成委托的扩展。
         /// </summary>
         /// <param name="workTask">The workTask<see cref="Task"/></param>
         /// <param name="completedAction">The completedAction<see cref="Action"/></param>
@@ -110,6 +110,23 @@ namespace Frontier.Wif.Utilities.Extensions
                     : TaskScheduler.Current;
             if (workTask.Status == TaskStatus.Created)
                 workTask.Start();
+
+            return workTask.ContinueWith(unusedTask => completedAction(), taskScheduler);
+        }
+
+        /// <summary>
+        /// 支持工作任务和同步执行完成委托的扩展。
+        /// </summary>
+        /// <param name="workTask">The action<see cref="Task"/></param>
+        /// <param name="completedAction">The completedAction<see cref="Action"/></param>
+        /// <param name="runCompletedActionInUIThread">The runCompletedActionInUIThread<see cref="bool"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public static Task ContinueWithRun(this Task workTask, Action completedAction,
+            bool                                     runCompletedActionInUIThread = true)
+        {
+            var taskScheduler = runCompletedActionInUIThread
+                ? TaskScheduler.FromCurrentSynchronizationContext()
+                : TaskScheduler.Current;
 
             return workTask.ContinueWith(unusedTask => completedAction(), taskScheduler);
         }
