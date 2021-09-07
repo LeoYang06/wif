@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**************************************************************************
+*      File Name：EnumToVisibilityConverter.cs
+*    Description：EnumToVisibilityConverter.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Globalization;

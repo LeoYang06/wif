@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**************************************************************************
+*      File Name：ColorToBrushConverter.cs
+*    Description：ColorToBrushConverter.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;

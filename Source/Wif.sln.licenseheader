@@ -2,7 +2,7 @@
 extensions: .cs .cpp .h
 /**************************************************************************
 *      File Name：%FileName%
-*    Description：To be added...
+*    Description：%FileName% class description...
 *      Copyright：Copyright © %CreationYear% LeoYang-Chuese. All rights reserved.
 *        Creator：%UserDisplayName%
 *    Create Time：%CreationYear%/%CreationMonth%/%CreationDay%

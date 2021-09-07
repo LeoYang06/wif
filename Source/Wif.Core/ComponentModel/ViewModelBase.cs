@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**************************************************************************
+*      File Name：ViewModelBase.cs
+*    Description：ViewModelBase.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System;
 using System.Windows;
 using System.Windows.Threading;
 using Frontier.Wif.Utilities.Helpers;

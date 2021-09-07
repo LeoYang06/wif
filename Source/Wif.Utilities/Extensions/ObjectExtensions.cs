@@ -1,4 +1,14 @@
-﻿namespace Frontier.Wif.Utilities.Extensions
+﻿/**************************************************************************
+*      File Name：ObjectExtensions.cs
+*    Description：ObjectExtensions.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
     /// Defines the <see cref="ObjectExtensions" />

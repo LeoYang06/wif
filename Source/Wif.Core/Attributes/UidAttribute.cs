@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**************************************************************************
+*      File Name：UidAttribute.cs
+*    Description：UidAttribute.cs class description...
+*      Copyright：Copyright © 2021 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2021/4/13
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System;
 
 namespace Frontier.Wif.Core.Attributes
 {
