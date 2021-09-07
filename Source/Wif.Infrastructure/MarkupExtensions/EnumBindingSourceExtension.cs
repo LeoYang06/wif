@@ -39,7 +39,7 @@ namespace Frontier.Wif.Infrastructure.MarkupExtensions
             get => _enumType;
             set
             {
-                if (!Equals(value, EnumType))
+                if (value != EnumType)
                 {
                     if (!Equals(value, null) && !(Nullable.GetUnderlyingType(value) ?? value).IsEnum)
                         throw new ArgumentException("Type must be an Enum.");

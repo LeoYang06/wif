@@ -20,9 +20,10 @@ namespace Wif.Demo.Examples.BindingDemo
     /// </summary>
     public partial class BindingDemoView
     {
-        public BindingDemoView()
+        public BindingDemoView(BindingDemoViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = ViewModel = viewModel;
         }
     }
 }

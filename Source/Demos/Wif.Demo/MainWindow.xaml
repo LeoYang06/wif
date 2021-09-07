@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:demo="clr-namespace:Wif.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wif="https://frontier-dn.github.io/winfx/xaml/presentation/wif"
         Title="Wif Demo"
         Width="800"
         Height="450"
@@ -15,12 +16,25 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
-            <Expander Header="BindingDemo" />
-            <Expander Header="FileHelperDemo" />
-        </StackPanel>
+        <ListBox MinWidth="200"
+                 MaxWidth="800"
+                 ItemsSource="{wif:EnumBindingSourceExtension demo:DemoViewCategories}"
+                 SelectedItem="{Binding SelectedDemoViewCategory}"
+                 SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="6"
+                               Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <wif:EventToCommandBehavior.EventBindings>
+                <wif:EventBinding Command="{Binding DemoViewCategoriesSelectionChangedCommand}"
+                                  PassEventArgsToCommand="True"
+                                  EventName="SelectionChanged" />
+            </wif:EventToCommandBehavior.EventBindings>
+        </ListBox>
 
         <ContentControl Grid.Column="1"
-                        Content="{Binding DemoView}" />
+                        Content="{Binding CurrentDemoView}" />
     </Grid>
 </Window>
