@@ -2,77 +2,25 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:demo="clr-namespace:Wif.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:common="clr-namespace:Wif.Demo.Common;assembly=Wif.Demo.Common"
-        mc:Ignorable="d"
-        Title="MainWindow"
-        Height="450"
+        Title="Wif Demo"
         Width="800"
-        Loaded="MainWindow_OnLoaded">
-    <Window.Resources>
-        <DataTemplate x:Key="Brand"
-                      DataType="common:MobilePhone">
-            <TextBox x:Name="txbBrand"
-                     Text="{Binding Brand}" />
-        </DataTemplate>
-        <DataTemplate x:Key="NumberOfCPUCore"
-                      DataType="common:MobilePhone">
-            <TextBox x:Name="txbNumberOfCPUCore"
-                     Text="{Binding NumberOfCPUCore}" />
-        </DataTemplate>
-        <DataTemplate x:Key="RAM"
-                      DataType="common:MobilePhone">
-            <TextBox x:Name="txbRAM"
-                     Text="{Binding RAM}" />
-        </DataTemplate>
-        <DataTemplate x:Key="ROM"
-                      DataType="common:MobilePhone">
-            <TextBox Name="txbROM"
-                     Text="{Binding ROM}" />
-        </DataTemplate>
-        <DataTemplate x:Key="ScreenResolution"
-                      DataType="common:MobilePhone">
-            <TextBox x:Name="txbScreenResolution"
-                     Text="{Binding ScreenResolution}" />
-        </DataTemplate>
-        <DataTemplate x:Key="ScreenSize"
-                      DataType="common:MobilePhone">
-            <TextBox x:Name="txbScreenSize"
-                     Text="{Binding ScreenSize,Mode=TwoWay}" />
-        </DataTemplate>
-
-        <Style TargetType="TextBox">
-            <Setter Property="Padding"
-                    Value="9,5" />
-        </Style>
-    </Window.Resources>
+        Height="450"
+        d:DataContext="{d:DesignInstance demo:MainViewModel}"
+        mc:Ignorable="d">
+    <Window.Resources />
     <Grid>
-        <TabControl>
-            <TabItem>
-                <ListView x:Name="ListViewMobiePhone"
-                          ItemsSource="{Binding MobilePhoneCollection}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn CellTemplate="{StaticResource Brand}"
-                                            Header="品牌" />
-                            <GridViewColumn CellTemplate="{StaticResource NumberOfCPUCore}"
-                                            Header="CPU核数" />
-                            <GridViewColumn CellTemplate="{StaticResource RAM}"
-                                            Header="运行内存" />
-                            <GridViewColumn CellTemplate="{StaticResource ROM}"
-                                            Header="机身内存" />
-                            <GridViewColumn CellTemplate="{StaticResource ScreenResolution}"
-                                            Header="屏幕分辨率" />
-                            <GridViewColumn CellTemplate="{StaticResource ScreenSize}"
-                                            Header="屏幕尺寸                                     " />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </TabItem>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Expander Header="BindingDemo" />
+            <Expander Header="FileHelperDemo" />
+        </StackPanel>
 
-            <TabItem Header="FileHelper Samples">
-                <Button Click="CreateDirectory_OnClick"/>
-            </TabItem>
-        </TabControl>
+        <ContentControl Grid.Column="1"
+                        Content="{Binding DemoView}" />
     </Grid>
 </Window>
