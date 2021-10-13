@@ -1,4 +1,14 @@
-﻿using System.Drawing;
+﻿/**************************************************************************
+*      File Name：ColorConvertExtensions.cs
+*    Description：ColorConvertExtensions.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System.Drawing;
 using System.Windows.Media;
 using Brush = System.Windows.Media.Brush;
 using Color = System.Windows.Media.Color;

@@ -1,4 +1,14 @@
-﻿using System.Windows;
+﻿/**************************************************************************
+*      File Name：EventToCommandBehavior.cs
+*    Description：EventToCommandBehavior.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System.Windows;
 
 namespace Frontier.Wif.Infrastructure.EventToCommand
 {

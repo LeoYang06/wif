@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**************************************************************************
+*      File Name：InverseBooleanConverter.cs
+*    Description：InverseBooleanConverter.cs class description...
+*      Copyright：Copyright © 2021 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2021/8/30
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System;
 using Frontier.Wif.Infrastructure.MarkupExtensions;
 
 namespace Frontier.Wif.Infrastructure.Converters

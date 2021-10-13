@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Wif.Demo.Examples.BindingDemo
+namespace Wif.Demo.Examples.SerializationHelperDemo
 {
     /// <summary>
-    /// BindingDemoView.xaml 的交互逻辑
+    /// SerializationHelperDemoView.xaml 的交互逻辑
     /// </summary>
-    public partial class BindingDemoView
+    public partial class SerializationHelperDemoView : UserControl
     {
-        public BindingDemoView(BindingDemoViewModel viewModel)
+        public SerializationHelperDemoView()
         {
             InitializeComponent();
-            DataContext = ViewModel = viewModel;
         }
     }
 }

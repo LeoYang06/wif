@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/**************************************************************************
+*      File Name：EventBindingCollection.cs
+*    Description：EventBindingCollection.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Windows;
 

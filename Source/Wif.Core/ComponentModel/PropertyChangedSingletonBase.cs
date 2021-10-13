@@ -1,4 +1,14 @@
-﻿using System.ComponentModel;
+﻿/**************************************************************************
+*      File Name：PropertyChangedSingletonBase.cs
+*    Description：PropertyChangedSingletonBase.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Frontier.Wif.Core.Generic;
 

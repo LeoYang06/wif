@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Wif.Demo.Examples.BindingDemo;
 using Wif.Demo.Examples.FileHelperDemo;
+using Wif.Demo.Examples.SerializationHelperDemo;
 
 namespace Wif.Demo.IocExtensions
 {
@@ -21,13 +22,13 @@ namespace Wif.Demo.IocExtensions
                 serviceCollection.AddTransient<MainWindow>();
                 serviceCollection.AddTransient<BindingDemoView>();
                 serviceCollection.AddTransient<FileHelperDemoView>();
+                serviceCollection.AddTransient<SerializationHelperDemoView>();
 
                 #endregion 注入View
 
                 #region 注入ViewModel
 
                 serviceCollection.AddTransient<MainViewModel>();
-                serviceCollection.AddTransient<BindingDemoViewModel>();
                 serviceCollection.AddTransient<BindingDemoViewModel>();
 
                 #endregion 注入ViewModel

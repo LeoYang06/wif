@@ -1,4 +1,14 @@
-﻿using System.Linq;
+﻿/**************************************************************************
+*      File Name：ScreenExtensions.cs
+*    Description：ScreenExtensions.cs class description...
+*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+*        Creator：Leo Yang
+*    Create Time：2020/12/15
+*Project Address：https://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;

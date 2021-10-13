@@ -1,3 +1,13 @@
+/**************************************************************************
+*      File Name£ºAsyncProperty.cs
+*    Description£ºAsyncProperty.cs class description...
+*      Copyright£ºCopyright ? 2020 LeoYang-Chuese. All rights reserved.
+*        Creator£ºLeo Yang
+*    Create Time£º2020/12/15
+*Project Address£ºhttps://github.com/LeoYang-Chuese/wif
+**************************************************************************/
+
+
 using System;
 using System.Threading.Tasks;
 

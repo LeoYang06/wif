@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using Frontier.Wif.Core.Collections;
 using Frontier.Wif.Core.ComponentModel;
+using Frontier.Wif.Infrastructure.Commands;
+using Frontier.Wif.Utilities.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Wif.Demo.Common;
+using Wif.Demo.Examples.BindingDemo;
+using Wif.Demo.Examples.FileHelperDemo;
+using Wif.Demo.Examples.SerializationHelperDemo;
 
 namespace Wif.Demo
 {
@@ -15,14 +24,55 @@ namespace Wif.Demo
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private UserControl _demoView;
+        private readonly IServiceProvider _serviceProvider;
+
+        private UserControl _currentDemoView;
         /// <summary>
         /// 获取或设置Demo视图。
         /// </summary>
-        public UserControl DemoView
+        public UserControl CurrentDemoView
         {
-            get => _demoView;
-            set => this.RaiseAndSetIfChanged(ref _demoView, value);
+            get => _currentDemoView;
+            set => this.RaiseAndSetIfChanged(ref _currentDemoView, value);
+        }
+
+        private string _selectedDemoViewCategory;
+        /// <summary>
+        /// 获取或设置当前选中的Demo视图类别。
+        /// </summary>
+        public string SelectedDemoViewCategory
+        {
+            get { return _selectedDemoViewCategory; }
+            set { this.RaiseAndSetIfChanged(ref _selectedDemoViewCategory, value); }
+        }
+
+        private ObservableCollection<string> _demoViewCategoriesCollection;
+        /// <summary>
+        /// 获取或设置Demo视图类别集合。
+        /// </summary>
+        public ObservableCollection<string> DemoViewCategoriesCollection
+        {
+            get => _demoViewCategoriesCollection;
+            set => this.RaiseAndSetIfChanged(ref _demoViewCategoriesCollection, value);
+        }
+
+        public DelegateCommand<RoutedEventArgs> DemoViewCategoriesSelectionChangedCommand { get; }
+
+        public MainViewModel(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+            DemoViewCategoriesSelectionChangedCommand = new DelegateCommand<RoutedEventArgs>(ExecuteDemoViewCategoriesSelectionChangedCommand);
+        }
+
+        private void ExecuteDemoViewCategoriesSelectionChangedCommand(RoutedEventArgs args)
+        {
+            CurrentDemoView = SelectedDemoViewCategory.ToEnum<DemoViewCategories>() switch
+            {
+                DemoViewCategories.BindingDemoView             => _serviceProvider.GetRequiredService<BindingDemoView>(),
+                DemoViewCategories.FileHelperDemoView          => _serviceProvider.GetRequiredService<FileHelperDemoView>(),
+                DemoViewCategories.SerializationHelperDemoView => _serviceProvider.GetRequiredService<SerializationHelperDemoView>(),
+                _                                              => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }
