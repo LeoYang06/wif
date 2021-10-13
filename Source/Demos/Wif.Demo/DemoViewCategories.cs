@@ -8,9 +8,12 @@ namespace Wif.Demo
     public enum DemoViewCategories
     {
         [Description(nameof(BindingDemoView))]
-        BindingDemoView,
+        BindingDemoView = 0,
 
         [Description(nameof(FileHelperDemoView))]
-        FileHelperDemoView
+        FileHelperDemoView = 1,
+
+        [Description(nameof(SerializationHelperDemoView))]
+        SerializationHelperDemoView = 2
     }
 }

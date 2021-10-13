@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Wif.Demo.Common;
 using Wif.Demo.Examples.BindingDemo;
 using Wif.Demo.Examples.FileHelperDemo;
+using Wif.Demo.Examples.SerializationHelperDemo;
 
 namespace Wif.Demo
 {
@@ -67,9 +68,10 @@ namespace Wif.Demo
         {
             CurrentDemoView = SelectedDemoViewCategory.ToEnum<DemoViewCategories>() switch
             {
-                DemoViewCategories.BindingDemoView    => _serviceProvider.GetRequiredService<BindingDemoView>(),
-                DemoViewCategories.FileHelperDemoView => _serviceProvider.GetRequiredService<FileHelperDemoView>(),
-                _                                     => throw new ArgumentOutOfRangeException()
+                DemoViewCategories.BindingDemoView             => _serviceProvider.GetRequiredService<BindingDemoView>(),
+                DemoViewCategories.FileHelperDemoView          => _serviceProvider.GetRequiredService<FileHelperDemoView>(),
+                DemoViewCategories.SerializationHelperDemoView => _serviceProvider.GetRequiredService<SerializationHelperDemoView>(),
+                _                                              => throw new ArgumentOutOfRangeException()
             };
         }
     }
