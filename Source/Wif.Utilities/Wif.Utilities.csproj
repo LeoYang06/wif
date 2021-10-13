@@ -4,7 +4,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Frontier.Wif.Utilities</RootNamespace>
-    <Version>0.2.1.21116</Version>
+    <Version>0.3.0.21286</Version>
     <Authors>LeoYang-Chuese</Authors>
     <Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
     <Copyright>Copyright © 2021 LeoYang-Chuese.  All rights reserved.</Copyright>
