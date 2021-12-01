@@ -67,6 +67,12 @@ wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
 
 
 
+## 联系方式
+
+邮箱：leolion610@foxmail.com
+
+
+
 ## Licence
 
 该项目根据[MIT许可证授权](https://github.com/LeoYang-Chuese/wif/blob/master/LICENSE)。
