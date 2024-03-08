@@ -28,9 +28,11 @@ namespace Frontier.Wif.Utilities.Extensions
         /// <returns></returns>
         public static T Deserialize<T>(this Stream stream)
         {
+#pragma warning disable SYSLIB0011
             var formatter = new BinaryFormatter();
             stream.Position = 0;
             return (T) formatter.Deserialize(stream);
+#pragma warning disable SYSLIB0011
         }
 
         /// <summary>
@@ -40,10 +42,12 @@ namespace Frontier.Wif.Utilities.Extensions
         /// <returns></returns>
         public static Stream Serialize(this object source)
         {
+#pragma warning disable SYSLIB0011
             var formatter = new BinaryFormatter();
             var stream = new MemoryStream();
             formatter.Serialize(stream, source);
             return stream;
+#pragma warning disable SYSLIB0011
         }
 
         #endregion

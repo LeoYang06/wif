@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net462;net472;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net462;net472;net6.0-windows;net8.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>Frontier.Wif.Core</RootNamespace>
 		<Version>0.3.0.21349</Version>
@@ -23,6 +23,12 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath>..\Output\Release\</OutputPath>
 		<DocumentationFile>..\Output\Release\Wif.Core.xml</DocumentationFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|AnyCPU'">
+	  <WarningLevel>7</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|AnyCPU'">
+	  <WarningLevel>7</WarningLevel>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Wif.Utilities\Wif.Utilities.csproj" />
