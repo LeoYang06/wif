@@ -42,21 +42,20 @@ namespace Frontier.Wif.Utilities.Extensions
         {
             try
             {
-                var strValue = enumSubitem.ToString();
-                var fieldInfo = enumSubitem.GetType().GetField(strValue);
-                var attribute = fieldInfo.GetCustomAttribute<DescriptionAttribute>(false);
-                if (attribute != null)
+                if (enumSubitem == null)
                 {
-                    var da = attribute;
-                    return da.Description;
+                    return string.Empty;
                 }
+
+                var       strValue  = enumSubitem.ToString();
+                FieldInfo fieldInfo = enumSubitem.GetType().GetField(strValue);
+                var       attribute = fieldInfo.GetCustomAttribute<DescriptionAttribute>(false);
+                return attribute != null ? attribute.Description : enumSubitem.ToString();
             }
             catch (Exception ex)
             {
-                throw new Exception("分解对象值出错", ex);
+                throw new Exception($"分解对象{enumSubitem}值出错：{ex.Message}", ex);
             }
-
-            return "未知属性名称";
         }
 
         /// <summary>
@@ -171,10 +170,14 @@ namespace Frontier.Wif.Utilities.Extensions
         public static T ToEnum<T>(this string value) where T : struct, IConvertible
         {
             if (!Enum.TryParse(value, true, out T result))
-                return default;
+            {
+                return default(T);
+            }
 
             if (!Enum.IsDefined(typeof(T), result))
-                return default;
+            {
+                return default(T);
+            }
 
             return result;
         }
