@@ -1,73 +1,126 @@
 ﻿/**************************************************************************
-*      File Name：VisualTreeHelperExtensions.cs
-*    Description：VisualTreeHelperExtensions.cs class description...
-*      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
-*        Creator：Leo Yang
-*    Create Time：2020/12/15
-*Project Address：https://github.com/LeoYang-Chuese/wif
-**************************************************************************/
-
+ *      File Name：VisualTreeHelperExtensions.cs
+ *    Description：VisualTreeHelperExtensions.cs class description...
+ *      Copyright：Copyright © 2020 LeoYang-Chuese. All rights reserved.
+ *        Creator：Leo Yang
+ *    Create Time：2020/12/15
+ *Project Address：https://github.com/LeoYang-Chuese/wif
+ **************************************************************************/
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Frontier.Wif.Utilities.Extensions
 {
     /// <summary>
-    /// 查找控件扩展方法
-    ///     http://www.hardcodet.net/uploads/2009/06/UIHelper.cs
+    /// 查找控件扩展方法 http://www.hardcodet.net/uploads/2009/06/UIHelper.cs
     /// </summary>
     public static class VisualTreeHelperExtensions
     {
         #region Methods
 
         /// <summary>
+        /// The GetParent
+        /// </summary>
+        /// <param name="element">The <see cref="DependencyObject" /></param>
+        /// <param name="recurseIntoPopup">The <see cref="bool" /></param>
+        /// <returns>The <see cref="DependencyObject" /></returns>
+        private static DependencyObject GetParent(DependencyObject element, bool recurseIntoPopup)
+        {
+            if (recurseIntoPopup)
+            {
+                // Case 126732 : To correctly detect parent of a popup we must do that exception case
+
+                if (element is Popup popup && popup.PlacementTarget != null)
+                {
+                    return popup.PlacementTarget;
+                }
+            }
+
+            DependencyObject parent = element is not Visual visual ? null : VisualTreeHelper.GetParent(visual);
+
+            if (parent == null)
+            {
+                // No Visual parent. Check in the logical tree.
+
+                if (element is FrameworkElement fe)
+                {
+                    parent = fe.Parent;
+
+                    if (parent == null)
+                    {
+                        parent = fe.TemplatedParent;
+                    }
+                }
+                else
+                {
+                    if (element is FrameworkContentElement fce)
+                    {
+                        parent = fce.Parent;
+
+                        if (parent == null)
+                        {
+                            parent = fce.TemplatedParent;
+                        }
+                    }
+                }
+            }
+
+            return parent;
+        }
+
+        /// <summary>
         /// Finds a Child of a given item in the visual tree.
         /// </summary>
         /// <typeparam name="T">The type of the queried item.</typeparam>
         /// <param name="parent">A direct parent of the queried item.</param>
-        /// <param name="childName">x:Name or Name of child. </param>
-        /// <returns>The <see cref="T"/></returns>
-        public static T FindChild<T>(DependencyObject parent, string childName)
-                where T : DependencyObject
+        /// <param name="childName">x:Name or Name of child.</param>
+        /// <returns>The <see cref="T" /></returns>
+        public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
-            // Confirm parent and childName are valid. 
-            if (parent == null) return null;
+            // Confirm parent and childName are valid.
+            if (parent == null)
+            {
+                return null;
+            }
 
             T foundChild = null;
 
-            var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
             for (var i = 0; i < childrenCount; i++)
             {
-                var child = VisualTreeHelper.GetChild(parent, i);
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
                 // If the child is not of the request child type child
-                var childType = child as T;
-                if (childType == null)
+                if (child is not T childType)
                 {
                     // recursively drill down the tree
                     foundChild = FindChild<T>(child, childName);
 
-                    // If the child is found, break so we do not overwrite the found child. 
-                    if (foundChild != null) break;
+                    // If the child is found, break so we do not overwrite the found child.
+                    if (foundChild != null)
+                    {
+                        break;
+                    }
                 }
                 else if (!string.IsNullOrEmpty(childName))
                 {
-                    var frameworkElement = child as FrameworkElement;
                     // If the child's name is set for search
-                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
                     {
                         // if the child's name is of the request name
-                        foundChild = (T) child;
+                        foundChild = (T)child;
                         break;
                     }
                 }
                 else
                 {
                     // child element found.
-                    foundChild = (T) child;
+                    foundChild = (T)child;
                     break;
                 }
             }
@@ -77,23 +130,25 @@ namespace Frontier.Wif.Utilities.Extensions
 
         /// <summary>
         /// This will search for a child of the specified type. The search is performed
-        ///     hierarchically, breadth first (as opposed to depth first).
+        /// hierarchically, breadth first (as opposed to depth first).
         /// </summary>
         /// <typeparam name="T">The type of the element to find</typeparam>
-        /// <param name="parent">The root of the tree to search for. This element itself is not checked.</param>
-        /// <param name="additionalCheck">The additionalCheck<see cref="Func{T, bool}"/></param>
+        /// <param name="parent">
+        /// The root of the tree to search for. This element itself is not checked.
+        /// </param>
+        /// <param name="additionalCheck">The additionalCheck <see cref="Func{T, bool}" /></param>
         /// <returns>Returns the found element. Null if nothing is found.</returns>
-        public static T FindChild<T>(this DependencyObject parent, Func<T, bool> additionalCheck = null)
-                where T : DependencyObject
+        public static T FindChild<T>(this DependencyObject parent, Func<T, bool> additionalCheck = null) where T : DependencyObject
         {
-            var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-            T child;
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            T   child;
 
             for (var index = 0; index < childrenCount; index++)
             {
                 child = VisualTreeHelper.GetChild(parent, index) as T;
 
                 if (child != null)
+                {
                     if (additionalCheck == null)
                     {
                         return child;
@@ -101,8 +156,11 @@ namespace Frontier.Wif.Utilities.Extensions
                     else
                     {
                         if (additionalCheck(child))
+                        {
                             return child;
+                        }
                     }
+                }
             }
 
             for (var index = 0; index < childrenCount; index++)
@@ -110,86 +168,99 @@ namespace Frontier.Wif.Utilities.Extensions
                 child = FindChild(VisualTreeHelper.GetChild(parent, index), additionalCheck);
 
                 if (child != null)
+                {
                     return child;
+                }
             }
 
             return null;
         }
 
         /// <summary>
-        /// 根据控件名称，查找子控件
-        ///     elementName为空时，查找指定类型的子控件
+        /// 根据控件名称，查找子控件 elementName为空时，查找指定类型的子控件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj<see cref="DependencyObject"/></param>
-        /// <param name="elementName">The elementName<see cref="string"/></param>
-        /// <returns>The <see cref="T"/></returns>
-        public static T FindChildByName<T>(this DependencyObject obj, string elementName)
-                where T : FrameworkElement
+        /// <param name="obj">The obj <see cref="DependencyObject" /></param>
+        /// <param name="elementName">The elementName <see cref="string" /></param>
+        /// <returns>The <see cref="T" /></returns>
+        public static T FindChildByName<T>(this DependencyObject obj, string elementName) where T : FrameworkElement
         {
             DependencyObject child = null;
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 child = VisualTreeHelper.GetChild(obj, i);
-                if (child is T && ((T) child).Name == elementName || string.IsNullOrEmpty(elementName))
-                    return (T) child;
+                if ((child is T && ((T)child).Name == elementName) || string.IsNullOrEmpty(elementName))
+                {
+                    return (T)child;
+                }
 
                 var grandChild = FindChildByName<T>(child, elementName);
-                if (grandChild != null) return grandChild;
+                if (grandChild != null)
+                {
+                    return grandChild;
+                }
             }
 
             return null;
         }
 
         /// <summary>
-        /// Analyzes both visual and logical tree in order to find all elements of a given
-        ///     type that are descendants of the <paramref name="source" /> item.
+        /// Analyzes both visual and logical tree in order to find all elements of a given type that
+        /// are descendants of the <paramref name="source" /> item.
         /// </summary>
         /// <typeparam name="T">The type of the queried items.</typeparam>
-        /// <param name="source">The source<see cref="DependencyObject"/></param>
-        /// <param name="forceUsingTheVisualTreeHelper">Sometimes it's better to search in the VisualTree (e.g. in tests)</param>
+        /// <param name="source">The source <see cref="DependencyObject" /></param>
+        /// <param name="forceUsingTheVisualTreeHelper">
+        /// Sometimes it's better to search in the VisualTree (e.g. in tests)
+        /// </param>
         /// <returns>All descendants of <paramref name="source" /> that match the requested type.</returns>
-        public static IEnumerable<T> FindChildren<T>(DependencyObject source,
-                bool forceUsingTheVisualTreeHelper = false) where T : DependencyObject
+        public static IEnumerable<T> FindChildren<T>(DependencyObject source, bool forceUsingTheVisualTreeHelper = false) where T : DependencyObject
         {
             if (source != null)
             {
                 var childs = GetChildObjects(source, forceUsingTheVisualTreeHelper);
-                foreach (var child in childs)
+                foreach (DependencyObject child in childs)
                 {
                     //analyze if children match the requested type
-                    if (child != null && child is T) yield return (T) child;
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
 
                     //recurse tree
-                    foreach (var descendant in FindChildren<T>(child)) yield return descendant;
+                    foreach (T descendant in FindChildren<T>(child))
+                    {
+                        yield return descendant;
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// 根据控件名称，查找子控件集合
-        ///     elementName为空时，查找指定类型的所有子控件
+        /// 根据控件名称，查找子控件集合 elementName为空时，查找指定类型的所有子控件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj<see cref="DependencyObject"/></param>
-        /// <param name="elementName">The elementName<see cref="string"/></param>
-        /// <returns>The <see cref="List{T}"/></returns>
-        public static List<T> FindChildsByName<T>(this DependencyObject obj, string elementName)
-                where T : FrameworkElement
+        /// <param name="obj">The obj <see cref="DependencyObject" /></param>
+        /// <param name="elementName">The elementName <see cref="string" /></param>
+        /// <returns>The <see cref="List{T}" /></returns>
+        public static List<T> FindChildsByName<T>(this DependencyObject obj, string elementName) where T : FrameworkElement
         {
-            DependencyObject child = null;
-            var childList = new List<T>();
+            DependencyObject child     = null;
+            var              childList = new List<T>();
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 child = VisualTreeHelper.GetChild(obj, i);
-                if (child is T && ((T) child).Name == elementName || string.IsNullOrEmpty(elementName))
+                if ((child is T && ((T)child).Name == elementName) || string.IsNullOrEmpty(elementName))
                 {
-                    childList.Add((T) child);
+                    childList.Add((T)child);
                 }
                 else
                 {
                     var grandChildList = FindChildsByName<T>(child, elementName);
-                    if (grandChildList != null) childList.AddRange(grandChildList);
+                    if (grandChildList != null)
+                    {
+                        childList.AddRange(grandChildList);
+                    }
                 }
             }
 
@@ -200,7 +271,9 @@ namespace Frontier.Wif.Utilities.Extensions
         /// This will search for a parent of the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the element to find</typeparam>
-        /// <param name="startingObject">The node where the search begins. This element is not checked.</param>
+        /// <param name="startingObject">
+        /// The node where the search begins. This element is not checked.
+        /// </param>
         /// <returns>Returns the found element. Null if nothing is found.</returns>
         public static T FindParent<T>(DependencyObject startingObject) where T : DependencyObject
         {
@@ -214,8 +287,7 @@ namespace Frontier.Wif.Utilities.Extensions
         /// <param name="startingObject">The node where the search begins.</param>
         /// <param name="checkStartingObject">Should the specified startingObject be checked first.</param>
         /// <returns>Returns the found element. Null if nothing is found.</returns>
-        public static T FindParent<T>(DependencyObject startingObject, bool checkStartingObject)
-                where T : DependencyObject
+        public static T FindParent<T>(DependencyObject startingObject, bool checkStartingObject) where T : DependencyObject
         {
             return FindParent<T>(startingObject, checkStartingObject, null);
         }
@@ -226,19 +298,19 @@ namespace Frontier.Wif.Utilities.Extensions
         /// <typeparam name="T">The type of the element to find</typeparam>
         /// <param name="startingObject">The node where the search begins.</param>
         /// <param name="checkStartingObject">Should the specified startingObject be checked first.</param>
-        /// <param name="additionalCheck">The additionalCheck<see cref="Func{T, bool}"/></param>
+        /// <param name="additionalCheck">The additionalCheck <see cref="Func{T, bool}" /></param>
         /// <returns>Returns the found element. Null if nothing is found.</returns>
-        public static T FindParent<T>(DependencyObject startingObject, bool checkStartingObject,
-                Func<T, bool> additionalCheck) where T : DependencyObject
+        public static T FindParent<T>(DependencyObject startingObject, bool checkStartingObject, Func<T, bool> additionalCheck) where T : DependencyObject
         {
-            T foundElement;
-            var parent = checkStartingObject ? startingObject : GetParent(startingObject, true);
+            T                foundElement;
+            DependencyObject parent = checkStartingObject ? startingObject : GetParent(startingObject, true);
 
             while (parent != null)
             {
                 foundElement = parent as T;
 
                 if (foundElement != null)
+                {
                     if (additionalCheck == null)
                     {
                         return foundElement;
@@ -246,8 +318,11 @@ namespace Frontier.Wif.Utilities.Extensions
                     else
                     {
                         if (additionalCheck(foundElement))
+                        {
                             return foundElement;
+                        }
                     }
+                }
 
                 parent = GetParent(parent, true);
             }
@@ -256,21 +331,22 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// 根据控件名称，查找父控件
-        ///     elementName为空时，查找指定类型的父控件
+        /// 根据控件名称，查找父控件 elementName为空时，查找指定类型的父控件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj<see cref="DependencyObject"/></param>
-        /// <param name="elementName">The elementName<see cref="string"/></param>
-        /// <returns>The <see cref="T"/></returns>
-        public static T FindParentByName<T>(this DependencyObject obj, string elementName)
-                where T : FrameworkElement
+        /// <param name="obj">The obj <see cref="DependencyObject" /></param>
+        /// <param name="elementName">The elementName <see cref="string" /></param>
+        /// <returns>The <see cref="T" /></returns>
+        public static T FindParentByName<T>(this DependencyObject obj, string elementName) where T : FrameworkElement
         {
-            var parent = VisualTreeHelper.GetParent(obj);
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
             while (parent != null)
             {
-                if (parent is T && (((T) parent).Name == elementName || string.IsNullOrEmpty(elementName)))
-                    return (T) parent;
+                if (parent is T && (((T)parent).Name == elementName || string.IsNullOrEmpty(elementName)))
+                {
+                    return (T)parent;
+                }
+
                 parent = VisualTreeHelper.GetParent(parent);
             }
 
@@ -286,15 +362,22 @@ namespace Frontier.Wif.Utilities.Extensions
         public static T FindVisualChildItem<T>(this DependencyObject obj) where T : DependencyObject
         {
             if (null != obj)
+            {
                 for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
                 {
-                    var child = VisualTreeHelper.GetChild(obj, i);
-                    if (child != null && child is T) return (T) child;
+                    DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                    if (child != null && child is T)
+                    {
+                        return (T)child;
+                    }
 
                     var childOfChild = FindVisualChildItem<T>(child);
                     if (childOfChild != null)
+                    {
                         return childOfChild;
+                    }
                 }
+            }
 
             return null;
         }
@@ -309,91 +392,125 @@ namespace Frontier.Wif.Utilities.Extensions
         public static T FindVisualChildItem<T>(this DependencyObject obj, string name) where T : FrameworkElement
         {
             if (null != obj)
+            {
                 for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
                 {
-                    var child = VisualTreeHelper.GetChild(obj, i);
-                    if (child != null && child is T && (child as T).Name.Equals(name)) return (T) child;
+                    DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                    if (child != null && child is T && (child as T).Name.Equals(name))
+                    {
+                        return (T)child;
+                    }
 
                     var childOfChild = FindVisualChildItem<T>(child, name);
                     if (childOfChild != null && childOfChild is T && childOfChild.Name.Equals(name))
+                    {
                         return childOfChild;
+                    }
                 }
+            }
 
             return null;
         }
 
         /// <summary>
-        /// This method is an alternative to WPF's
-        ///     <see cref="VisualTreeHelper.GetChild" /> method, which also
-        ///     supports content elements. Keep in mind that for content elements,
-        ///     this method falls back to the logical tree of the element.
+        /// This method is an alternative to WPF's <see cref="VisualTreeHelper.GetChild" /> method,
+        /// which also supports content elements. Keep in mind that for content elements, this
+        /// method falls back to the logical tree of the element.
         /// </summary>
         /// <param name="parent">The item to be processed.</param>
-        /// <param name="forceUsingTheVisualTreeHelper">Sometimes it's better to search in the VisualTree (e.g. in tests)</param>
+        /// <param name="forceUsingTheVisualTreeHelper">
+        /// Sometimes it's better to search in the VisualTree (e.g. in tests)
+        /// </param>
         /// <returns>The submitted item's child elements, if available.</returns>
-        public static IEnumerable<DependencyObject> GetChildObjects(DependencyObject parent,
-                bool forceUsingTheVisualTreeHelper = false)
+        public static IEnumerable<DependencyObject> GetChildObjects(DependencyObject parent, bool forceUsingTheVisualTreeHelper = false)
         {
-            if (parent == null) yield break;
+            if (parent == null)
+            {
+                yield break;
+            }
 
             if (!forceUsingTheVisualTreeHelper && (parent is ContentElement || parent is FrameworkElement))
             {
                 //use the logical tree for content / framework elements
-                foreach (var obj in LogicalTreeHelper.GetChildren(parent))
+                foreach (object obj in LogicalTreeHelper.GetChildren(parent))
                 {
-                    var depObj = obj as DependencyObject;
-                    if (depObj != null) yield return (DependencyObject) obj;
+                    if (obj is DependencyObject depObj)
+                    {
+                        yield return (DependencyObject)obj;
+                    }
                 }
             }
             else
             {
                 //use the visual tree per default
-                var count = VisualTreeHelper.GetChildrenCount(parent);
-                for (var i = 0; i < count; i++) yield return VisualTreeHelper.GetChild(parent, i);
+                int count = VisualTreeHelper.GetChildrenCount(parent);
+                for (var i = 0; i < count; i++)
+                {
+                    yield return VisualTreeHelper.GetChild(parent, i);
+                }
             }
         }
 
         /// <summary>
-        /// Tries its best to return the specified element's parent. It will
-        ///     try to find, in this order, the VisualParent, LogicalParent, LogicalTemplatedParent.
-        ///     It only works for Visual, FrameworkElement or FrameworkContentElement.
+        /// 返回从叶节点开始的完整逻辑祖先链。
         /// </summary>
-        /// <param name="element">The element<see cref="DependencyObject"/></param>
-        /// <returns>The <see cref="DependencyObject"/></returns>
+        /// <param name="leaf">叶节点</param>
+        /// <returns>返回一个包含从叶节点开始的所有逻辑祖先的迭代器</returns>
+        public static IEnumerable<DependencyObject> GetLogicalAncestry(this DependencyObject leaf)
+        {
+            while (leaf != null)
+            {
+                yield return leaf;
+                leaf = LogicalTreeHelper.GetParent(leaf);
+            }
+        }
+
+        /// <summary>
+        /// Tries its best to return the specified element's parent. It will try to find, in this
+        /// order, the VisualParent, LogicalParent, LogicalTemplatedParent. It only works for
+        /// Visual, FrameworkElement or FrameworkContentElement.
+        /// </summary>
+        /// <param name="element">The element <see cref="DependencyObject" /></param>
+        /// <returns>The <see cref="DependencyObject" /></returns>
         public static DependencyObject GetParent(DependencyObject element)
         {
             return GetParent(element, true);
         }
 
         /// <summary>
-        /// This method is an alternative to WPF's
-        ///     <see cref="VisualTreeHelper.GetParent" /> method, which also
-        ///     supports content elements. Keep in mind that for content element,
-        ///     this method falls back to the logical tree of the element!
+        /// This method is an alternative to WPF's <see cref="VisualTreeHelper.GetParent" /> method,
+        /// which also supports content elements. Keep in mind that for content element, this method
+        /// falls back to the logical tree of the element!
         /// </summary>
         /// <param name="child">The item to be processed.</param>
-        /// <returns>The <see cref="DependencyObject"/></returns>
+        /// <returns>The <see cref="DependencyObject" /></returns>
         public static DependencyObject GetParentObject(this DependencyObject child)
         {
-            if (child == null) return null;
+            if (child == null)
+            {
+                return null;
+            }
 
             //handle content elements separately
-            var contentElement = child as ContentElement;
-            if (contentElement != null)
+            if (child is ContentElement contentElement)
             {
-                var parent = ContentOperations.GetParent(contentElement);
-                if (parent != null) return parent;
+                DependencyObject parent = ContentOperations.GetParent(contentElement);
+                if (parent != null)
+                {
+                    return parent;
+                }
 
-                var fce = contentElement as FrameworkContentElement;
-                return fce != null ? fce.Parent : null;
+                return contentElement is FrameworkContentElement fce ? fce.Parent : null;
             }
 
             //also try searching for parent in framework elements (such as DockPanel, etc)
-            var frameworkElement = child as FrameworkElement;
-            if (frameworkElement != null)
+            if (child is FrameworkElement frameworkElement)
             {
-                var parent = frameworkElement.Parent;
-                if (parent != null) return parent;
+                DependencyObject parent = frameworkElement.Parent;
+                if (parent != null)
+                {
+                    return parent;
+                }
             }
 
             //if it's not a ContentElement/FrameworkElement, rely on VisualTreeHelper
@@ -401,31 +518,48 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// Returns true if the specified element is a child of parent somewhere in the visual
-        ///     tree. This method will work for Visual, FrameworkElement and FrameworkContentElement.
+        /// 返回从叶节点开始的完整视觉祖先链。
+        /// <para>如果元素不是 <see cref="Visual" /> 或 <see cref="Visual3D" />， 则使用逻辑祖先链。</para>
+        /// </summary>
+        /// <param name="leaf">叶节点</param>
+        /// <returns>返回一个包含从叶节点开始的所有祖先的迭代器</returns>
+        public static IEnumerable<DependencyObject> GetVisualAncestry(this DependencyObject leaf)
+        {
+            while (leaf != null)
+            {
+                yield return leaf;
+                leaf = leaf is Visual || leaf is Visual3D ? VisualTreeHelper.GetParent(leaf) : LogicalTreeHelper.GetParent(leaf);
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the specified element is a child of parent somewhere in the visual tree.
+        /// This method will work for Visual, FrameworkElement and FrameworkContentElement.
         /// </summary>
         /// <param name="element">The element that is potentially a child of the specified parent.</param>
         /// <param name="parent">The element that is potentially a parent of the specified element.</param>
-        /// <returns>The <see cref="bool"/></returns>
+        /// <returns>The <see cref="bool" /></returns>
         public static bool IsDescendantOf(DependencyObject element, DependencyObject parent)
         {
             return IsDescendantOf(element, parent, true);
         }
 
         /// <summary>
-        /// Returns true if the specified element is a child of parent somewhere in the visual
-        ///     tree. This method will work for Visual, FrameworkElement and FrameworkContentElement.
+        /// Returns true if the specified element is a child of parent somewhere in the visual tree.
+        /// This method will work for Visual, FrameworkElement and FrameworkContentElement.
         /// </summary>
         /// <param name="element">The element that is potentially a child of the specified parent.</param>
         /// <param name="parent">The element that is potentially a parent of the specified element.</param>
-        /// <param name="recurseIntoPopup">The recurseIntoPopup<see cref="bool"/></param>
-        /// <returns>The <see cref="bool"/></returns>
+        /// <param name="recurseIntoPopup">The recurseIntoPopup <see cref="bool" /></param>
+        /// <returns>The <see cref="bool" /></returns>
         public static bool IsDescendantOf(DependencyObject element, DependencyObject parent, bool recurseIntoPopup)
         {
             while (element != null)
             {
                 if (element == parent)
+                {
                     return true;
+                }
 
                 element = GetParent(element, recurseIntoPopup);
             }
@@ -434,19 +568,43 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
+        /// 判断一个DependencyObject是否是另一个DependencyObject的后代。
+        /// </summary>
+        /// <param name="leaf">可能是后代的DependencyObject</param>
+        /// <param name="ancestor">可能是祖先的DependencyObject</param>
+        /// <returns>如果leaf是ancestor的后代，则返回true，否则返回false</returns>
+        public static bool IsDescendantOfDependencyObject(this DependencyObject leaf, DependencyObject ancestor)
+        {
+            DependencyObject parent = null;
+            foreach (DependencyObject node in leaf.GetVisualAncestry())
+            {
+                if (Equals(node, ancestor))
+                {
+                    return true;
+                }
+
+                parent = node;
+            }
+
+            return parent?.GetLogicalAncestry().Contains(ancestor) == true;
+        }
+
+        /// <summary>
         /// Finds a parent of a given item on the visual tree.
         /// </summary>
         /// <typeparam name="T">The type of the queried item.</typeparam>
-        /// <param name="child">The child<see cref="DependencyObject"/></param>
-        /// <returns>The <see cref="T"/></returns>
-        public static T TryFindParent<T>(this DependencyObject child)
-                where T : DependencyObject
+        /// <param name="child">The child <see cref="DependencyObject" /></param>
+        /// <returns>The <see cref="T" /></returns>
+        public static T TryFindParent<T>(this DependencyObject child) where T : DependencyObject
         {
             //get parent item
-            var parentObject = GetParentObject(child);
+            DependencyObject parentObject = GetParentObject(child);
 
             //we've reached the end of the tree
-            if (parentObject == null) return null;
+            if (parentObject == null)
+            {
+                return null;
+            }
 
             //check if the parent matches the type we're looking for
             var parent = parentObject as T;
@@ -454,52 +612,30 @@ namespace Frontier.Wif.Utilities.Extensions
         }
 
         /// <summary>
-        /// The GetParent
+        /// 提供了一种以深度优先的方式遍历DependencyObject的视觉树的方法。
         /// </summary>
-        /// <param name="element">The <see cref="DependencyObject" /></param>
-        /// <param name="recurseIntoPopup">The <see cref="bool" /></param>
-        /// <returns>The <see cref="DependencyObject" /></returns>
-        private static DependencyObject GetParent(DependencyObject element, bool recurseIntoPopup)
+        /// <param name="node">需要遍历的DependencyObject节点。</param>
+        /// <returns>返回一个包含视觉树中所有DependencyObject的迭代器。</returns>
+        /// <exception cref="ArgumentNullException">当提供的DependencyObject为null时，抛出此异常。</exception>
+        public static IEnumerable<DependencyObject> VisualDepthFirstTraversal(this DependencyObject node)
         {
-            if (recurseIntoPopup)
+            if (node == null)
             {
-                // Case 126732 : To correctly detect parent of a popup we must do that exception case
-                var popup = element as Popup;
-
-                if (popup != null && popup.PlacementTarget != null)
-                    return popup.PlacementTarget;
+                throw new ArgumentNullException(nameof(node));
             }
 
-            var visual = element as Visual;
-            var parent = visual == null ? null : VisualTreeHelper.GetParent(visual);
+            yield return node;
 
-            if (parent == null)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(node); i++)
             {
-                // No Visual parent. Check in the logical tree.
-                var fe = element as FrameworkElement;
-
-                if (fe != null)
+                DependencyObject child = VisualTreeHelper.GetChild(node, i);
+                foreach (DependencyObject descendant in child.VisualDepthFirstTraversal())
                 {
-                    parent = fe.Parent;
-
-                    if (parent == null) parent = fe.TemplatedParent;
-                }
-                else
-                {
-                    var fce = element as FrameworkContentElement;
-
-                    if (fce != null)
-                    {
-                        parent = fce.Parent;
-
-                        if (parent == null) parent = fce.TemplatedParent;
-                    }
+                    yield return descendant;
                 }
             }
-
-            return parent;
         }
 
-        #endregion
+        #endregion Methods
     }
 }
