@@ -1,78 +1,66 @@
-##### [English](https://github.com/Leolion610/wif/blob/master/README.EN.md)
+##### [English](https://github.com/Leolion610/wif/blob/master/README.md)| [中文](https://github.com/Leolion610/wif/blob/master/README.cn.md)
 
 ![Logo](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_logo.png?raw=true)
 
 ### WPF Infrastructure Framework（WIF）    　    　            　 　  
 
-wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
+wif is a basic infrastructure framework that can help you quickly develop WPF applications.
 
-支持 .NET Framework (4.7.2+) 和 .NET Core (3.1 and 5.0)
+Supports .NET Framework (4.7.2+) and .NET Core (3.1 and 5.0)
 
 [![Nuget](https://img.shields.io/nuget/dt/Wif.Utilities.svg)](https://www.nuget.org/packages/Wif.Utilities/) [![nuget-version](https://img.shields.io/nuget/v/Wif.Infrastructure.svg)](https://www.nuget.org/packages/Wif.Infrastructure) ![dotnet-version](https://img.shields.io/badge/.NET%20Framework-%3E%3D4.7.2-blue.svg) ![dotnetcore version](https://img.shields.io/badge/.NET%20Core-%3E%3D3.1-blue.svg) ![csharp-version](https://img.shields.io/badge/C%23-8.0-blue.svg) ![IDE-version](https://img.shields.io/badge/IDE-vs2019-blue.svg) [![博客园](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2%E5%9B%AD-%E6%A5%9A%E4%BA%BALeo-brightgreen.svg)](https://www.cnblogs.com/leolion/)
 
 
 
+### Project Origin
 
-### 项目起源
+After a large number of WPF project developments, a large amount of useful infrastructure has been accumulated, and it has been organized and published, so that later developers can quickly develop WPF applications. You can choose to reference the generated dll, or you can copy the code you need into your project. Strictly speaking, this project is not a framework, but a collection of discrete infrastructure.
 
-在经过大量的WPF项目开发后，积累了大量好用的Infrastructure，故整理并发布出来，供后来者快速开发WPF应用程序。您可以选择引用生成的dll，也可以拷贝您需要的代码到您的项目中。严格的说该项目不是一个框架，而是由离散的基础设施组成。
+## Project Components
 
+The project consists of Wif.Core, Wif.Utils and Wif.Infrastructure.
 
+- ##### Wif.Core: The core part of the WPF infrastructure framework, this part of the code is generally XAML-irrelevant, has the least dependencies, and includes Async, Cache, Collections, ComponentModel, Generic, Setting.
 
-## 项目组成
+- ##### Wif.Utils: The extension part of the WPF infrastructure framework, mainly some Extensions and Helpers.
 
-项目由Wif.Core、Wif.Utils和Wif.Infrastructure组成。
+- ##### Wif.Infrastructure: The main part of the WPF infrastructure framework, including Binding, PropertyChanged, MarkupExtensions, Converters, Commands, EventToCommand, Behaviors, ValidationRules and many other useful infrastructure.
 
-- ##### Wif.Core：WPF基础设施框架的核心部分，该部分代码一般是XAML不相关的，有最少的依赖项，包含Async、Cache、Collections、ComponentModel、Generic、Setting。
-
-- ##### Wif.Utils：WPF基础设施框架的扩展部分，主要是一些Extensions、Helpers。
-
-- ##### Wif.Infrastructure：WPF基础设施框架的主要部分，包含Binding、PropertyChanged、MarkupExtensions、Converters、Commands、EventToCommand、Behaviors、ValidationRules等大量实用基础设施。
-
-
-
-## 组成图
+## Composition Diagram
 
 ![组成图](https://github.com/Leolion610/wif/blob/master/Resources/Images/wif_ConstitutionalDiagram.png?raw=true)
 
-
-## 博客
+## Blog
 
 > **【[wif 系列](https://www.cnblogs.com/leolion/p/10275027.html)】**
 
 
 
-## 文档
+## Documentation
 
 - [在C#中实现单例模式](https://github.com/LeoYang610/wif/blob/master/Docs/%E5%9C%A8C%23%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md)
 - [C#之单例模式（Singleton Pattern）最佳实践](https://github.com/LeoYang610/wif/blob/master/Docs/C%23%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%EF%BC%88Singleton%20Pattern%EF%BC%89%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md)
 
 
 
-## 致敬感谢
+## Acknowledgments
 
-项目中大部分代码源自于个人积累，同时有一些代码参阅了WPF开发者的分享，这部分代码已注明出处和链接，特此致敬！
+Most of the code in the project comes from personal accumulation, and some code has referred to the sharing of WPF developers, and the source and links have been noted.
 
+## Target Audience
 
+This project includes some MVVM framework implementations, but it is not intended to replace the MVVM framework. If you are developing a small project and do not consider using an MVVM framework, this project may be suitable for you to implement a simple MVVM pattern.
 
-## 适用人群
+If you find that the infrastructure in existing MVVM frameworks cannot fully meet your needs, you can see if there is anything suitable in this project to serve as an auxiliary library for your MVVM framework.
 
-该项目中有一些MVVM框架的实现，但是并不用于替代MVVM框架。如果您开发的是一个小型项目，不考虑使用MVVM框架，本项目或许适合您实现简单MVVM模式。
+If you have a code obsession and pursue elegant code, this project may be suitable for you.
 
-如果您觉得现有的MVVM框架中的基础设施不能完全满足您的需要，您可以看看该项目中是否有适合的，以作为MVVM框架的辅助库。
+If you are a WPF beginner, this project may open a door for you to glimpse the exquisiteness of WPF design.
 
-如果您有代码洁癖，追求精致代码，这个项目可能适合您。
+## Contact Information
 
-如果您是一位WPF初学者，该项目或许可以为您打开一扇门，窥见WPF设计的精妙之处。
-
-
-
-## 联系方式
-
-邮箱：leolion610@foxmail.com
-
-
+Email: [leolion610@foxmail.com](mailto:leolion610@foxmail.com)
 
 ## Licence
 
-该项目根据[MIT许可证授权](https://github.com/LeoYang-Chuese/wif/blob/master/LICENSE)。
+This project is licensed under the [MIT License](https://github.com/LeoYang-Chuese/wif/blob/master/LICENSE).

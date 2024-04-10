@@ -1,64 +1,70 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFrameworks>net462;net472;net6.0-windows;net8.0-windows</TargetFrameworks>
-		<UseWPF>true</UseWPF>
-		<UseWindowsForms>true</UseWindowsForms>
-		<RootNamespace>Frontier.Wif.Utilities</RootNamespace>
-		<Version>0.4.0.24100</Version>
-		<Authors>LeoYang-Chuese</Authors>
-		<Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
-		<Copyright>Copyright © 2021 LeoYang-Chuese.  All rights reserved.</Copyright>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/LeoYang-Chuese/wif</PackageProjectUrl>
-		<PackageTags>WPF;UI;Infrastructure;Utilities;Modern;XAML;Toolkit;Library;.NET;OpenSource</PackageTags>
-		<PackageReleaseNotes>https://github.com/LeoYang-Chuese/wif/releases</PackageReleaseNotes>
-		<PackageIcon>wif_logo.png</PackageIcon>
-		<RepositoryUrl>https://github.com/LeoYang-Chuese/wif.git</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<LangVersion>default</LangVersion>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<OutputPath>..\Output\Debug\</OutputPath>
-		<DocumentationFile>..\Output\Debug\Wif.Utilities.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<OutputPath>..\Output\Release\</OutputPath>
-		<DocumentationFile>..\Output\Release\Wif.Utilities.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
-	  <WarningLevel>6</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-	  <WarningLevel>6</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
-	  <WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
-	  <WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|AnyCPU'">
-	  <WarningLevel>7</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|AnyCPU'">
-	  <WarningLevel>7</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="WpfAnalyzers" Version="3.5.2">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net462'))">
-		<Reference Include="PresentationCore" />
-		<Reference Include="PresentationFramework" />
-		<Reference Include="System.Windows.Forms" />
-		<Reference Include="WindowsBase" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\..\Resources\Images\wif_logo.png">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net462;net472;net6.0-windows;net8.0-windows</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <RootNamespace>Frontier.Wif.Utilities</RootNamespace>
+        <Version>0.4.0.24100</Version>
+        <Authors>LeoYang-Chuese</Authors>
+        <Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
+        <Copyright>Copyright © 2021 LeoYang-Chuese.  All rights reserved.</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/LeoYang-Chuese/wif</PackageProjectUrl>
+        <PackageTags>WPF;UI;Infrastructure;Utilities;Modern;XAML;Toolkit;Library;.NET;OpenSource</PackageTags>
+        <PackageReleaseNotes>https://github.com/LeoYang-Chuese/wif/releases</PackageReleaseNotes>
+        <PackageIcon>wif_logo.png</PackageIcon>
+        <RepositoryUrl>https://github.com/LeoYang-Chuese/wif.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <LangVersion>default</LangVersion>
+        <Title>Wif.Utilities</Title>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <OutputPath>..\Output\Debug\</OutputPath>
+        <DocumentationFile>..\Output\Debug\Wif.Utilities.xml</DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\Output\Release\</OutputPath>
+        <DocumentationFile>..\Output\Release\Wif.Utilities.xml</DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+        <WarningLevel>6</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+        <WarningLevel>6</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|AnyCPU'">
+        <WarningLevel>7</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|AnyCPU'">
+        <WarningLevel>7</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="WpfAnalyzers" Version="3.5.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <ItemGroup Condition="$(TargetFramework.StartsWith('net462'))">
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\Resources\Images\wif_logo.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 </Project>
