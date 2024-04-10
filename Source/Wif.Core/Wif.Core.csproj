@@ -3,7 +3,7 @@
 		<TargetFrameworks>net462;net472;net6.0-windows;net8.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>Frontier.Wif.Core</RootNamespace>
-		<Version>0.3.0.21349</Version>
+		<Version>0.4.0.24100</Version>
 		<Authors>LeoYang-Chuese</Authors>
 		<Description>WPF Infrastructure Framework（WIF）is an infrastructure framework that helps you develop WPF applications quickly.</Description>
 		<Copyright>Copyright © 2021 LeoYang-Chuese.  All rights reserved.</Copyright>
