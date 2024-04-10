@@ -188,6 +188,7 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <returns></returns>
         private static T DeserializeFromBytes<T>(byte[] source)
         {
+#pragma warning disable SYSLIB0011
             var obj = default(T);
             IFormatter formatter = new BinaryFormatter();
             T result;
@@ -198,6 +199,7 @@ namespace Frontier.Wif.Utilities.Helpers
             }
 
             return result;
+#pragma warning disable SYSLIB0011
         }
 
         /// <summary>
@@ -208,6 +210,7 @@ namespace Frontier.Wif.Utilities.Helpers
         /// <returns></returns>
         private static byte[] SerializeToBytes<T>(T obj)
         {
+#pragma warning disable SYSLIB0011
             IFormatter formatter = new BinaryFormatter();
             byte[] result;
             using (var memoryStream = new MemoryStream())
@@ -218,6 +221,7 @@ namespace Frontier.Wif.Utilities.Helpers
             }
 
             return result;
+#pragma warning disable SYSLIB0011
         }
 
         #endregion

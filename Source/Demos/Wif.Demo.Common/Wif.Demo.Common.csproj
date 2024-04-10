@@ -1,25 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.1;net5.0-windows</TargetFrameworks>
-    <UseWPF>true</UseWPF>
-    <LangVersion>default</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\Output\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\Output\Release\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Wif.Core\Wif.Core.csproj" />
-    <ProjectReference Include="..\..\Wif.Infrastructure\Wif.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Wif.Utilities\Wif.Utilities.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net462;net472;net6.0-windows;net8.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<LangVersion>default</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\Output\Debug\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>..\Output\Release\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Wif.Core\Wif.Core.csproj" />
+		<ProjectReference Include="..\..\Wif.Infrastructure\Wif.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\Wif.Utilities\Wif.Utilities.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net462'))">
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
 
 </Project>

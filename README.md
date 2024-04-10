@@ -8,7 +8,7 @@ wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
 
 支持 .NET Framework (4.7.2+) 和 .NET Core (3.1 and 5.0)
 
-[![Nuget](https://img.shields.io/nuget/dt/Wif.Infrastructure.svg)](https://www.nuget.org/packages/Wif.Infrastructure/) [![nuget-version](https://img.shields.io/nuget/v/Wif.Infrastructure.svg)](https://www.nuget.org/packages/Wif.Infrastructure) ![dotnet-version](https://img.shields.io/badge/.NET%20Framework-%3E%3D4.7.2-blue.svg) ![dotnetcore version](https://img.shields.io/badge/.NET%20Core-%3E%3D3.1-blue.svg) ![csharp-version](https://img.shields.io/badge/C%23-8.0-blue.svg) ![IDE-version](https://img.shields.io/badge/IDE-vs2019-blue.svg) [![博客园](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2%E5%9B%AD-%E6%A5%9A%E4%BA%BALeo-brightgreen.svg)](https://www.cnblogs.com/leolion/)
+[![Nuget](https://img.shields.io/nuget/dt/Wif.Utilities.svg)](https://www.nuget.org/packages/Wif.Utilities/) [![nuget-version](https://img.shields.io/nuget/v/Wif.Infrastructure.svg)](https://www.nuget.org/packages/Wif.Infrastructure) ![dotnet-version](https://img.shields.io/badge/.NET%20Framework-%3E%3D4.7.2-blue.svg) ![dotnetcore version](https://img.shields.io/badge/.NET%20Core-%3E%3D3.1-blue.svg) ![csharp-version](https://img.shields.io/badge/C%23-8.0-blue.svg) ![IDE-version](https://img.shields.io/badge/IDE-vs2019-blue.svg) [![博客园](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2%E5%9B%AD-%E6%A5%9A%E4%BA%BALeo-brightgreen.svg)](https://www.cnblogs.com/leolion/)
 
 
 
@@ -64,6 +64,12 @@ wif 一个基础设施框架，可帮助您快速开发WPF应用程序。
 如果您有代码洁癖，追求精致代码，这个项目可能适合您。
 
 如果您是一位WPF初学者，该项目或许可以为您打开一扇门，窥见WPF设计的精妙之处。
+
+
+
+## 联系方式
+
+邮箱：leolion610@foxmail.com
 
 
 
